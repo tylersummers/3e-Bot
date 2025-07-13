@@ -1,3 +1,3 @@
-# IFF-Bot
+# 3e-Bot
 ## Overview
-This is a private discord bot made for the [IFF](discord.gg/iff) discord server, an OCE Holdfast Nations at War regiment.
+A Discord bot for the 3e Régiment d'Infanterie Suisse. Based on IFF-Bot by SoulWarden1 
