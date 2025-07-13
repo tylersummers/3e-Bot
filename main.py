@@ -23,23 +23,23 @@ class MyBot(commands.Bot):
     def __init__(self):
         super().__init__(
             command_prefix=commands.when_mentioned_or('_'),
-            description="""A bot developed by SoulWarden for the IFF""",
+            description="""A bot developed by SoulWarden for the IFF. Edited by RAT_DOG for the 3e.""",
             intents=discord.Intents.all(),
             activity=discord.Activity(type=discord.ActivityType.watching, name="me start up"),
             status=discord.Status.online,
             owner_ids=set(varStore.owners),
             help_command=None
             )
-        self.cogList = ["adminCmd", "helpCmd", "iffCmd","backgroundTasks", "randomCmd", "attendance"]
+        self.cogList = ["adminCmd", "helpCmd", "enlistedCmd", "randomCmd", "backgroundTasks", "attendance"]
         self.synced = False
-
+        
     async def setup_hook(self): 
         for cog in self.cogList:
             await self.load_extension(cog)
-        self.tree.copy_global_to(guild=discord.Object(varStore.iffGuild))
-        await self.tree.sync(guild=discord.Object(varStore.iffGuild))
+        self.tree.copy_global_to(guild=discord.Object(varStore.enlistedGuild))
+        await self.tree.sync(guild=discord.Object(varStore.enlistedGuild))
         print("Cogs loaded and tree synced")
-
+        
 bot = MyBot()
 tree = bot.tree
 
@@ -76,7 +76,7 @@ async def on_ready():
         varStore.pastSelectIds.remove("")
     finally:
         f.close()
-        print("Past id loaded")
+        print("Past ID loaded")
 
     # Sets prefix
     if platform.system() == 'Windows':
@@ -88,128 +88,13 @@ async def on_ready():
     
     print("Bot ready")
 
-dmChannelId = 950245454317236304
-nineCooldown = []
-fourCooldown = []
-
-
-@bot.event
-async def on_message(message: discord.Message = None):
-    if message.author == bot.user:
-        return
-    if message.author.bot:
-        return
-    
-    # sevenRole = message.guild.get_role(783564469854142464)
-    # eightRole = message.guild.get_role(845007589674188839)
-    nineRole = message.guild.get_role(863756344494260224)
-    fourRole = message.guild.get_role(760440084880162838)
-
-    if message.guild is None and not message.author.bot:
-        now = datetime.now()
-        current_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-
-        channel = bot.get_channel(dmChannelId)
-        embed = discord.Embed(
-            title=f"{message.author}",
-            description=f"**Sent at:** {current_time}\n**ID: **{message.author.id}",
-            color=0xFFA500,
-        )
-        embed.add_field(name=f"Message: ", value=f"{message.content}", inline=False)
-        await channel.send("<@499816773122654219>")
-        msg = await channel.send(embed=embed)
-
-        varStore.botDms[msg.id] = message.author.id
-        print(varStore.botDms)
-
-    elif (
-        message.channel.id == 806427204896292864
-        and nineRole in message.author.roles or fourRole in message.author.roles
-    ):
-        await message.add_reaction("\N{Police Cars Revolving Light}")
-
-    # elif message.channel.id == 806427204896292864:
-    #     # 9e rekt
-    #     if varStore.insult:
-    #         global nineCooldown
-    #         channel = bot.get_channel(varStore.companyChannel)
-    #         insults = [
-    #             f"{message.author.mention}, get out of our chat 9e scum",
-    #             f"What are you doing here {message.author.mention}, this is 8e turf",
-    #             f"Go back to the crap 9e chat where you belong {message.author.mention}",
-    #             f"Who's this 9e clown",
-    #             f"9e is too lowly to be talking in a chat as great as this, get outta here {message.author.mention}",
-    #             f"{message.author.mention}, please keep your skill issue to yourself it's embarrassing",
-    #             f"Of course 9e would want to talk in the superior 8e chat",
-    #         ]
-    #         try:
-    #             nineCom = discord.utils.get(
-    #                 message.guild.roles, name="9e Grenadiers de la Garde"
-    #             )
-    #         except:
-    #             if message.author.id != bot.id:
-    #                 print("User dm sent, so no role was found")
-    #         else:
-    #             if (
-    #                 message.channel.id == varStore.companyChannel
-    #                 and nineCom in message.author.roles
-    #                 and nineCooldown.count(message.author.id) == 0
-    #             ):
-    #                 choice = randint(0, len(insults) - 1)
-    #                 nineCooldown.append(message.author.id)
-    #                 await channel.send(f"{insults[choice]}")
-    #                 await asyncio.sleep(60)
-    #                 nineCooldown.remove(message.author.id)
-
-    #         # 4e rekt
-    #         global fourCooldown
-    #         channel = bot.get_channel(varStore.companyChannel)
-    #         insults = [
-    #             f"{message.author.mention}, get out of our chat 4e, come back when you hit something",
-    #             f"What are you doing here {message.author.mention}, go talk in your dead 4e chat",
-    #             f"Go back to the crap 4e chat where you belong {message.author.mention}",
-    #             f"Who's this 4e clown",
-    #             f"{message.author.mention}, please keep your skill issue to yourself its embarrassing",
-    #             f"Of course 4e would want to talk in the superior 8e chat",
-    #         ]
-    #         try:
-    #             fourCom = discord.utils.get(
-    #                 message.guild.roles, name="4e Batterie d'Artillerie à Pied"
-    #             )
-    #         except:
-    #             print("User dm sent, so no role was found")
-    #         else:
-    #             if (
-    #                 message.channel.id == varStore.companyChannel
-    #                 and fourCom in message.author.roles
-    #                 and fourCooldown.count(message.author.id) == 0
-    #             ):
-    #                 choice = randint(0, len(insults) - 1)
-    #                 fourCooldown.append(message.author.id)
-    #                 await channel.send(f"{insults[choice]}")
-    #                 await asyncio.sleep(60)
-    #                 fourCooldown.remove(message.author.id)
-
-    if (
-        message.channel.id == 950245454317236304
-        and message.reference is not None
-        and message.author.id in varStore.owners
-    ):
-        repliedId = message.reference.message_id
-        dmUserId = varStore.botDms[repliedId]
-        user = bot.get_user(dmUserId)
-        await user.send(message.content)
-
-        channel = bot.get_channel(dmChannelId)
-        await channel.send("Message sent")
-
-    await bot.process_commands(message)
+dmChannelId = 961625199109894144
 
 
 @bot.event
 async def on_reaction_add(reaction, user):
     if (
-        reaction.message.channel.id == 907599229629911104
+        reaction.message.channel.id == 961625199109894144
         and reaction.message.id == varStore.leaderPingMsgId
     ):
         msg = await (reaction.message.channel).fetch_message(reaction.message.id)
@@ -254,24 +139,24 @@ async def on_reaction_add(reaction, user):
                 shrugStr = ", ".join(shrugNames)
 
         if thumbUpNameStr == "":
-            thumbUpNameStr = "No one :("
+            thumbUpNameStr = "-"
         if thumbDownNameStr == "":
-            thumbDownNameStr = "No one :)"
+            thumbDownNameStr = "-"
         if shrugStr == "":
-            shrugStr = "No one :("
+            shrugStr = "-"
 
         embed = discord.Embed(
-            title="Leadership Attendance",
-            description="React with :thumbsup: or :thumbsdown: if you're coming tonight",
+            title="Officer Attendance",
+            description="Can you make it tonight? React with :thumbsup: / :thumbsdown: / :shrug:",
             color=0x109319,
         )
         embed.add_field(name="Coming: ", value=f"\u200b{thumbUpNameStr}", inline=False)
-        embed.add_field(name="Count: ", value=f"\u200b{thumbUpCount}", inline=False)
+        embed.add_field(name="Tonight's Officer Count: ", value=f"\u200b{thumbUpCount}", inline=False)
         embed.add_field(
             name="Not coming: ", value=f"\u200b{thumbDownNameStr}", inline=False
         )
-        embed.add_field(name="Count: ", value=f"\u200b{thumbDownCount}", inline=False)
-        embed.add_field(name="Maybe coming: ", value=f"\u200b{shrugStr}", inline=False)
+        embed.add_field(name="Tonight's Absent Count: ", value=f"\u200b{thumbDownCount}", inline=False)
+        embed.add_field(name="Maybe coming/might be late: ", value=f"\u200b{shrugStr}", inline=False)
         embed.add_field(name="Count: ", value=f"\u200b{shrugCount}", inline=False)
 
         await msg.edit(embed=embed)
@@ -280,7 +165,7 @@ async def on_reaction_add(reaction, user):
 @bot.event
 async def on_reaction_remove(reaction, user):
     if (
-        reaction.message.channel.id == 907599229629911104
+        reaction.message.channel.id == 961625199109894144
         and reaction.message.id == varStore.leaderPingMsgId
     ):
         msg = await (reaction.message.channel).fetch_message(reaction.message.id)
@@ -325,24 +210,24 @@ async def on_reaction_remove(reaction, user):
                 shrugStr = ", ".join(shrugNames)
 
         if thumbUpNameStr == "":
-            thumbUpNameStr = "No one :("
+            thumbUpNameStr = "-"
         if thumbDownNameStr == "":
-            thumbDownNameStr = "No one :)"
+            thumbDownNameStr = "-"
         if shrugStr == "":
-            shrugStr = "No one :("
+            shrugStr = "-"
 
         embed = discord.Embed(
             title="Leadership Attendance",
-            description="React with :thumbsup: or :thumbsdown: if you're coming tonight",
+            description="Can you make it tonight? React with :thumbsup: / :thumbsdown: / :shrug:",
             color=0x109319,
         )
         embed.add_field(name="Coming: ", value=f"\u200b{thumbUpNameStr}", inline=False)
-        embed.add_field(name="Count: ", value=f"\u200b{thumbUpCount}", inline=False)
+        embed.add_field(name="Tonight's Officer Count: ", value=f"\u200b{thumbUpCount}", inline=False)
         embed.add_field(
             name="Not coming: ", value=f"\u200b{thumbDownNameStr}", inline=False
         )
-        embed.add_field(name="Count: ", value=f"\u200b{thumbDownCount}", inline=False)
-        embed.add_field(name="Maybe coming: ", value=f"\u200b{shrugStr}", inline=False)
+        embed.add_field(name="Tonight's Absent Count: ", value=f"\u200b{thumbDownCount}", inline=False)
+        embed.add_field(name="Maybe coming/might be late: ", value=f"\u200b{shrugStr}", inline=False)
         embed.add_field(name="Count: ", value=f"\u200b{shrugCount}", inline=False)
 
         await msg.edit(embed=embed)
@@ -398,7 +283,7 @@ async def on_command_error(ctx, error):
         # All other Errors not returned come here. And we can just print the default TraceBack.
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-
+            
 # Prints when a guild is joined
 @bot.event
 async def on_guild_join(ctx, error):
@@ -413,18 +298,18 @@ async def on_guild_remove(ctx, error):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     print(f"Bot has left {ctx.guild} at {current_time}")
-
+    
 # For giving return members their roles back
 @bot.event
 async def on_member_remove(member):
-    iffGuild = bot.get_guild(592559858482544641)
-    iffRole = get(iffGuild.roles, id = 611927973838323724)
+    enlistedGuild = bot.get_guild(772917331235438654)
+    enlistedRole = get(enlistedGuild.roles, id = 772922211933224960)
     
     storageFolder = Path().absolute() / "storage"
     leftMembersFile = storageFolder / "leftMembers.txt"
     
-    # Checks if the guild is the IFF guild and if they have the IFF role
-    if member.guild != iffGuild or iffRole not in member.roles:
+    # Checks if the guild is the 3e guild and if they have the Enlisted role
+    if member.guild != enlistedGuild or enlistedRole not in member.roles:
         return
     
     # Checks if the user is already in the left members list and removes any previous versions
@@ -454,22 +339,23 @@ async def on_member_remove(member):
     # Writes the user ID with the following line containing the role id's
     with open(leftMembersFile, "a") as file:
         file.write(str(member.id) + "\n" + roleIds + "\n")
-
+        
 @bot.event
 async def on_member_join(member):
     storageFolder = Path().absolute() / "storage"
     leftMembersFile = storageFolder / "leftMembers.txt"
-    iffBotTestChannel = bot.get_channel(954194296809095188)
+    regimentBotTestChannel = bot.get_channel(832452992137166908)
     
     with open(leftMembersFile, "r") as file:
         lines = file.readlines()
         
         for line in lines:
             if line.strip() == str(member.id):
-                await iffBotTestChannel.send(f"{member.display_name} has previously been in the IFF server and can have their roles returned with </return_role:1125667822815694950>")
+                await regimentBotTestChannel.send(f"{member.display_name} has previously been in the 3e server and can have their roles returned with </return_role:1125667822815694950>")
                 break
-
-
+        
+    
+    
 @bot.command()
 @commands.guild_only()
 @commands.is_owner()
@@ -503,14 +389,14 @@ async def sync(
             ret += 1
 
     await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.")
-
+    
 @bot.command()
 @commands.is_owner()
 async def clear(ctx):
-    tree.clear_commands(guild=discord.Object(id = varStore.iffGuild))
-    await tree.sync(guild=discord.Object(id = varStore.iffGuild))
+    tree.clear_commands(guild=discord.Object(id = varStore.enlistedGuild))
+    await tree.sync(guild=discord.Object(id = varStore.enlistedGuild))
     await ctx.reply("Tree cleared")
-
+    
 # Reload cogs command
 @bot.command()
 @commands.is_owner()
@@ -594,4 +480,4 @@ async def load(ctx, extension: str = None):
         await ctx.reply(embed=embed)
 
 
-bot.run(token)
+bot.run("redacted")
