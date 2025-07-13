@@ -5,116 +5,57 @@ from discord.ext import tasks
 from random import randint, choice
 import asyncio
 import varStore
-import platform
+import attendance
 
-# from randomCmd import testMsg
-
+#from randomCmd import testMsg
 
 class backgroundTasks(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
+        
     # Rotates the status
     @tasks.loop(seconds=60.0)
     async def statusRotation(self):
-        statuses = [
-            "_help",
-            "your shotcalls",
-            "your lack of skill",
-            "your right clicking",
-            "Joshlols",
-            "your teamkills",
-            "your terrible aim",
-            "you getting straight stabbed",
-            "you getting cannon wipped",
-            "Deedee's stream",
-            "the IFF",
-            "7th",
-            "8th",
-            "9th",
-        ]
-        await self.bot.change_presence(
-            activity=discord.Activity(
-                type=discord.ActivityType.watching, name=f"{choice(statuses)}"
-            )
-        )
-
-    # Automatically rolls the announcement picker
-    @tasks.loop(seconds=59.0)
-    async def autoRoll(self):
-        eventDays = [2, 4, 5, 6]
-        pingDays = [2, 4, 5]
+        statuses = ["_help", 
+                    "Xander's cannon wipes", 
+                    "Jungle bear the flag", 
+                    "your teamkills", 
+                    "your aim", 
+                    "you spin",
+                    "the Legere", 
+                    "the Garde",  
+                    "the Artillerie", 
+                    "the Support Staff", 
+                    "the Infanterie", 
+                    "the Cavalerie", 
+                    "Les cent Suisse",
+                    "the Donations come in",
+                    "Liberte News"]
+        
+        # Initialize current_time
+        eventDays = [2, 4, 5]
+        trainingDays = [5]
         now = datetime.now()
         current_time = now.strftime("%H:%M")
 
-        # Auto roll
-        if (
-            current_time == "14:30"
-            and datetime.today().weekday() in pingDays
-            and platform.system() == "Linux"
-        ):
-            roll = 0
-            while True:
-                randId = randint(0, len(varStore.members) - 1)
-                roll += 1
-                if varStore.members[randId] not in varStore.pastSelectIds:
-                    break
-            announceChannel = self.bot.get_channel(907599229629911104)
+        holiday_start = datetime(2024, 12, 22)
+        holiday_end = datetime(2025, 1, 7)
+        if holiday_start <= now <= holiday_end:
+            await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{choice(statuses)}"))
+            return
 
-            varStore.pastSelectIds.pop(0)
-            varStore.pastSelectIds.append(str(varStore.members[randId]))
-
-            f = open("storage/pastSelectId.txt", "w")
-
-            for id in varStore.pastSelectIds:
-                f.write(id + "\n")
-            f.close()
-
-            selectMemberId = varStore.members[randId]
-            try:
-                user = await self.bot.fetch_user(selectMemberId)
-                user = user.name
-            except:
-                user = "Error"
-
-            await announceChannel.send(
-                f"<@{selectMemberId}> has been chosen to do the announcement! If you want a template, run '/template'."
-            )
-
-            activity = discord.Activity(
-                type=discord.ActivityType.watching, name=f"{user}'s announcement"
-            )
-            await self.bot.change_presence(
-                status=discord.Status.online, activity=activity
-            )
-
-            print(f"Announcement rolled at {current_time}")
-
-            # Stops the auto rotation of status for 10 minues
-            cog = self.bot.get_cog("backgroundTasks")
-            cog.statusRotation.cancel()
-            await asyncio.sleep(600)
-            cog = self.bot.get_cog("backgroundTasks")
-            cog.statusRotation.start()
+        await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{choice(statuses)}"))
 
         # Auto leadership attendance ping
-        elif (
-            current_time == "16:00"
-            and datetime.today().weekday() in pingDays
-            and platform.system() == "Linux"
-        ):
-            leadershipChannel = self.bot.get_channel(907599229629911104)
+        if current_time == "13:00" and datetime.today().weekday() in eventDays:
+            leadershipChannel = self.bot.get_channel(961625199109894144)
 
-            embed = discord.Embed(
-                title="Leadership Attendance",
-                description="React with :thumbsup: or :thumbsdown: if you're coming tonight",
-                color=0x109319,
-            )
-            embed.add_field(name="Coming: ", value=f"No one :(", inline=False)
-            embed.add_field(name="Count: ", value=f"0", inline=False)
-            embed.add_field(name="Not coming: ", value=f"No one :)", inline=False)
-            embed.add_field(name="Count: ", value=f"0", inline=False)
-            embed.add_field(name="Maybe coming: ", value=f"No one :(", inline=False)
+            embed = discord.Embed(title="Officer Attendance", description="Can you make it tonight? React with :thumbsup: or :thumbsdown:", color=0x109319)
+            embed.add_field(name="Coming: ", value=f"No Officers attending! :(", inline=False)
+            embed.add_field(name="Tonight's Officer Count: ", value=f"0", inline=False)
+            embed.add_field(name="Not coming: ", value=f"No apologies received. :)", inline=False)
+            embed.add_field(name="Tonight's Absent Count: ", value=f"0", inline=False)
+            embed.add_field(name="Maybe coming/might be late: ", value=f"No timely attendance in doubt!", inline=False)
             embed.add_field(name="Count: ", value=f"0", inline=False)
 
             msg = await leadershipChannel.send(embed=embed)
@@ -122,96 +63,109 @@ class backgroundTasks(commands.Cog):
             await msg.add_reaction("\N{THUMBS UP SIGN}")
             await msg.add_reaction("\N{THUMBS DOWN SIGN}")
             await msg.add_reaction("\N{SHRUG}")
-
             varStore.leaderPingMsgId = msg.id
-
-        # Auto roll call
-        elif (
-            current_time == "20:20"
-            and datetime.today().weekday() in eventDays
-            and platform.system() == "Linux"
-        ):
-            vcCatId = 948180967607136306
-            iffGuild = self.bot.get_guild(592559858482544641)
-            vcChannelsIds = []
-            totalUsers = 0
-            channelUsers = []
-            sevenUsers = []
-            eightUsers = []
-            nineUsers = []
+            
+    # Auto roll call
+        elif current_time == "20:20" and datetime.today().weekday() in eventDays:
+            vcCatId = 772918008737038367
+            enlistedGuild = self.bot.get_guild(772917331235438654)
+            vcChannelsIds = [channel.id for channel in enlistedGuild.voice_channels if channel.category_id == vcCatId]
+            
+            artyUsers = []
+            guardUsers = []
+            skirmUsers = []
+            cavUsers = []
             otherUsers = []
+            mercUsers = []
 
-            sevenRole = iffGuild.get_role(783564469854142464)
-            eightRole = iffGuild.get_role(845007589674188839)
-            nineRole = iffGuild.get_role(863756344494260224)
+            artyRole = enlistedGuild.get_role(845614864629235712)
+            guardRole = enlistedGuild.get_role(802900303648653322)
+            skirmRole = enlistedGuild.get_role(826778081531658280)
+            cavRole = enlistedGuild.get_role(973152930330968094)
+            mercRole = enlistedGuild.get_role(773055184049405974)
 
-            vcChannelsIds = [
-                channel.id
-                for channel in iffGuild.voice_channels
-                if channel.category_id == vcCatId
-            ]
+            totalUsers = 0
 
             for channelId in vcChannelsIds:
                 channel = self.bot.get_channel(channelId)
-                channelUsers.append(channel.members)
-                totalUsers += len(channel.members)
+                if channel:
+                    totalUsers += len(channel.members)
+                    for member in channel.members:
+                        if artyRole in member.roles:
+                            artyUsers.append(member.display_name)
+                        elif guardRole in member.roles:
+                            guardUsers.append(member.display_name)
+                        elif skirmRole in member.roles:
+                            skirmUsers.append(member.display_name)
+                        elif cavRole in member.roles:
+                            cavUsers.append(member.display_name)
+                        elif mercRole in member.roles:
+                            mercUsers.append(member.display_name)
+                        else:
+                            otherUsers.append(member.display_name)
 
-            for user in channelUsers:
-                for x in user:
-                    if sevenRole in x.roles:
-                        sevenUsers.append(x.display_name)
-                        continue
-                    elif eightRole in x.roles:
-                        eightUsers.append(x.display_name)
-                        continue
-                    elif nineRole in x.roles:
-                        nineUsers.append(x.display_name)
-                        continue
-                    else:
-                        otherUsers.append(x.display_name)
-                        continue
+            logbookChannel = self.bot.get_channel(772919594016571442)
 
-            sevenStr = ", ".join(sevenUsers)
-            eightStr = ", ".join(eightUsers)
-            nineStr = ", ".join(nineUsers)
-            otherStr = ", ".join(otherUsers)
+            embed=discord.Embed(title="3e Event Attendance - AUTOMATIC REPORT ONLY, NO LOGBOOK CHANGES!", description="", color=0x151798)
+            embed.add_field(name="Total Attendance", value=f"{totalUsers}", inline=False)
+            embed.add_field(name="Cannon Crew (Total: {})".format(len(artyUsers)), value=", ".join(artyUsers), inline=False)
+            embed.add_field(name="Cavalry (Total: {})".format(len(cavUsers)), value=", ".join(cavUsers), inline=False)
+            embed.add_field(name="Guards (Total: {})".format(len(guardUsers)), value=", ".join(guardUsers), inline=False)
+            embed.add_field(name="Skirmishers (Total: {})".format(len(skirmUsers)), value=", ".join(skirmUsers), inline=False)
+            embed.add_field(name="Line & Support Staff (Total: {})".format(len(otherUsers)), value=", ".join(otherUsers), inline=False)
+            embed.add_field(name="Mercenaries (Total: {})".format(len(mercUsers)), value=", ".join(mercUsers), inline=False)
+            await logbookChannel.send(embed=embed)
 
-            ncoChannel = self.bot.get_channel(954194296809095188)
+        elif current_time == "19:20" and datetime.today().weekday() in trainingDays:
+            vcCatId = 772918008737038367
+            enlistedGuild = self.bot.get_guild(772917331235438654)
+            vcChannelsIds = [channel.id for channel in enlistedGuild.voice_channels if channel.category_id == vcCatId]
+            
+            artyUsers = []
+            guardUsers = []
+            skirmUsers = []
+            cavUsers = []
+            otherUsers = []
+            mercUsers = []
 
-            embed = discord.Embed(
-                title="IFF Attendance",
-                description="Current IFF attendance",
-                color=0x151798,
-            )
-            embed.add_field(name=f"Total Players", value=f"{totalUsers}", inline=False)
-            embed.add_field(
-                name=f"7th Players (Total: {len(sevenUsers)})",
-                value=f"\u200b{sevenStr}",
-                inline=False,
-            )
-            embed.add_field(
-                name=f"8th Players (Total: {len(eightUsers)})",
-                value=f"\u200b{eightStr}",
-                inline=False,
-            )
-            embed.add_field(
-                name=f"9th Players (Total: {len(nineUsers)})",
-                value=f"\u200b{nineStr}",
-                inline=False,
-            )
-            embed.add_field(
-                name=f"Other Players (Total: {len(otherUsers)})",
-                value=f"\u200b{otherStr}",
-                inline=False,
-            )
-            await ncoChannel.send(embed=embed)
+            artyRole = enlistedGuild.get_role(845614864629235712)
+            guardRole = enlistedGuild.get_role(802900303648653322)
+            skirmRole = enlistedGuild.get_role(826778081531658280)
+            cavRole = enlistedGuild.get_role(973152930330968094)
+            mercRole = enlistedGuild.get_role(773055184049405974)
 
-        # Auto muster roll
-        # elif current_time == "22:00" and datetime.today().weekday() == 5 and varStore.platform:
-        #     channel = self.bot.get_context(832454366598135808)
-        #     muster = self.bot.get_command("muster")
-        #     await channel.invoke(muster)
+            totalUsers = 0
 
+            for channelId in vcChannelsIds:
+                channel = self.bot.get_channel(channelId)
+                if channel:
+                    totalUsers += len(channel.members)
+                    for member in channel.members:
+                        if artyRole in member.roles:
+                            artyUsers.append(member.display_name)
+                        elif guardRole in member.roles:
+                            guardUsers.append(member.display_name)
+                        elif skirmRole in member.roles:
+                            skirmUsers.append(member.display_name)
+                        elif cavRole in member.roles:
+                            cavUsers.append(member.display_name)
+                        elif mercRole in member.roles:
+                            mercUsers.append(member.display_name)
+                        else:
+                            otherUsers.append(member.display_name)
+
+            logbookChannel = self.bot.get_channel(772919594016571442)
+
+            embed=discord.Embed(title="3e Training Attendance - AUTOMATIC REPORT ONLY, NO LOGBOOK CHANGES!", description="", color=0x151798)
+            embed.add_field(name="Total Attendance", value=f"{totalUsers}", inline=False)
+            embed.add_field(name="Cannon Crew (Total: {})".format(len(artyUsers)), value=", ".join(artyUsers), inline=False)
+            embed.add_field(name="Cavalry (Total: {})".format(len(cavUsers)), value=", ".join(cavUsers), inline=False)
+            embed.add_field(name="Guards (Total: {})".format(len(guardUsers)), value=", ".join(guardUsers), inline=False)
+            embed.add_field(name="Skirmishers (Total: {})".format(len(skirmUsers)), value=", ".join(skirmUsers), inline=False)
+            embed.add_field(name="Line & Support Staff (Total: {})".format(len(otherUsers)), value=", ".join(otherUsers), inline=False)
+            embed.add_field(name="Mercenaries (Total: {})".format(len(mercUsers)), value=", ".join(mercUsers), inline=False)
+            await logbookChannel.send(embed=embed)
+            
     @tasks.loop(seconds=5)
     async def rgb(self):
         while True:
@@ -221,19 +175,11 @@ class backgroundTasks(commands.Cog):
             await asyncio.sleep(5)
             await self.bot.change_presence(status=discord.Status.online)
             await asyncio.sleep(5)
-
-    # @tasks.loop(seconds=30)
-    # async def test(self):
-    #     await testMsg(self)
-
+            
     @commands.Cog.listener()
     async def on_ready(self):
-        # Creates backgroup loops
         self.statusRotation.start()
-        self.autoRoll.start()
-        # self.test.start()
         print("Background tasks started")
-
-
+        
 async def setup(bot):
     await bot.add_cog(backgroundTasks(bot))
