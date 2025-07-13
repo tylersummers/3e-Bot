@@ -1,341 +1,353 @@
 import discord
+from discord import Embed
 from discord.ext import commands
 import gspread
-from gspread.cell import Cell
-from oauth2client.service_account import ServiceAccountCredentials
+import googleapiclient
+from googleapiclient.errors import HttpError
 from datetime import datetime
-import re
-from pathlib import Path
+import logging
+import asyncio
 
-scope = ['https://spreadsheets.google.com/feeds',
-                'https://www.googleapis.com/auth/drive']
 
-iffAttendanceCreds = Path().absolute() / "storage" / "iffAttendanceCreds.json"
+import random
+from random import randint
 
-creds = ServiceAccountCredentials.from_json_keyfile_name(iffAttendanceCreds, scope)
-client = gspread.authorize(creds)
-spreadsheet = client.open("IFF Attendance")
+
+# Initialize logging
+logging.basicConfig(level=logging.INFO)
+
+# Service Account to Access Logbook
+gc = gspread.service_account(filename='/home/container/storage/e-logbook-420412-0954626b746a.json')
+sh = gc.open_by_key('redacted')
 
 class attendanceCog(commands.Cog):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
-    
+
     @commands.has_any_role(
-        661521548061966357, 660353960514813952, 661522627646586893, 948862889815597079
+        772921452135055360, 772921453095944203, 772921882072449075, 772921877953904661
     )
-    @commands.group(pass_context=True, aliases=["Attend"], invoke_without_subcommand=True)
-    async def attend(self, ctx):
+    @commands.group(pass_context=True, aliases=["Logbook"], invoke_without_subcommand=True)
+    async def logbook(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.reply("No command specified")
+            await ctx.reply("No subcommand specified - specify event, training, promotions, or report")
             return
 
-    @attend.command(name = "individual", aliases=["indv"])
-    async def individual(self, ctx, company: str, *, name: str):
-        if company == "7th":
-            sheet = spreadsheet.worksheet("7e Attendance")
-        elif company == "8th":
-            sheet = spreadsheet.worksheet("8e Attendance")
-        elif company == "9th":
-            sheet = spreadsheet.worksheet("9e Attendance")
-        else:
-            await ctx.reply("Invalid company")
+    @logbook.command(name="report", aliases=["Report"])
+    async def attendance(self, ctx):
+        try:
+            vcCatId = 772918008737038367
+            enlistedGuild = self.bot.get_guild(772917331235438654)
+            vcChannelsIds = [channel.id for channel in enlistedGuild.voice_channels if channel.category_id == vcCatId]
+
+            artyUsers = []
+            guardUsers = []
+            skirmUsers = []
+            cavUsers = []
+            otherUsers = []
+            mercUsers = []
+
+            artyRole = enlistedGuild.get_role(845614864629235712)
+            guardRole = enlistedGuild.get_role(802900303648653322)
+            skirmRole = enlistedGuild.get_role(826778081531658280)
+            cavRole = enlistedGuild.get_role(973152930330968094)
+            mercRole = enlistedGuild.get_role(773055184049405974)
+
+            totalUsers = 0
+            for channelId in vcChannelsIds:
+                channel = self.bot.get_channel(channelId)
+                if channel:
+                    totalUsers += len(channel.members)
+                    for member in channel.members:
+                        if artyRole in member.roles:
+                            artyUsers.append(member.display_name)
+                        elif guardRole in member.roles:
+                            guardUsers.append(member.display_name)
+                        elif skirmRole in member.roles:
+                            skirmUsers.append(member.display_name)
+                        elif cavRole in member.roles:
+                            cavUsers.append(member.display_name)
+                        elif mercRole in member.roles:
+                            mercUsers.append(member.display_name)
+                        else:
+                            otherUsers.append(member.display_name)
+
+            logbookChannel = self.bot.get_channel(772919594016571442)
+            embed = discord.Embed(title="3e Attendance - REPORT ONLY, NO LOGBOOK CHANGES!", color=0x151798)
+            embed.add_field(name="Total Attendance", value=f"{totalUsers}", inline=False)
+            embed.add_field(name="Cannon Crew (Total: {})".format(len(artyUsers)), value=", ".join(artyUsers), inline=False)
+            embed.add_field(name="Cavalry (Total: {})".format(len(cavUsers)), value=", ".join(cavUsers), inline=False)
+            embed.add_field(name="Guards (Total: {})".format(len(guardUsers)), value=", ".join(guardUsers), inline=False)
+            embed.add_field(name="Skirmishers (Total: {})".format(len(skirmUsers)), value=", ".join(skirmUsers), inline=False)
+            embed.add_field(name="Line & Support Staff (Total: {})".format(len(otherUsers)), value=", ".join(otherUsers), inline=False)
+            embed.add_field(name="Mercenaries (Total: {})".format(len(mercUsers)), value=", ".join(mercUsers), inline=False)
+            await logbookChannel.send(embed=embed)
+        except Exception as e:
+            logging.error(f"Error in attendance reporting: {str(e)}")
+            await ctx.reply("Failed to generate the attendance report. Please try again later.")
+
+    @logbook.command(name="promotions", aliases=["Promotions"])
+    async def promotions(self, ctx):
+        try:
+            # Define the worksheet
+            enlisted_sheet = sh.worksheet('Officer Corps and Enlisted')
+        
+            # Define the rank requirements
+            rank_requirements = {
+                "Recrue.": {"linebattles": 0, "trainings": 1, "next_rank": "Cadet."},
+                "Cadet.": {"linebattles": 6, "trainings": 2, "next_rank": "Soldat."},
+                "Soldat.": {"linebattles": 12, "trainings": 4, "next_rank": "Fusilier."},
+                "Fusilier.": {"linebattles": 18, "trainings": 8, "next_rank": "Grenadier."},
+                "Grenadier.": {"linebattles": 36, "trainings": 16, "next_rank": "Grenadier de Premier."},
+                "Grenadier de Premier.": {"linebattles": float('inf'), "trainings": float('inf'), "next_rank": None}
+            }
+
+            # Initialize list for promotions
+            users_due_for_promotion = []
+
+            # Fetch all values from the sheet
+            values = enlisted_sheet.get_all_values()
+            headers = values[0]
+            rank_col = headers.index('Rank')  # Assuming the column header is 'Rank'
+            training_col = headers.index('Trainings')
+            linebattle_col = headers.index('Line Battles')
+            name_col = headers.index('Name')
+
+            for i, row in enumerate(values[1:], start=2):  # Start at row 2 (first data row)
+                rank = row[rank_col]
+                if rank in rank_requirements:
+                    # Handle empty string by defaulting to 0
+                    trainings = int(row[training_col]) if row[training_col].isdigit() else 0
+                    linebattles = int(row[linebattle_col]) if row[linebattle_col].isdigit() else 0
+                    requirements = rank_requirements[rank]
+                    if trainings >= requirements['trainings'] and linebattles >= requirements['linebattles']:
+                        users_due_for_promotion.append({
+                            "name": row[name_col],
+                            "current_rank": rank,
+                            "next_rank": requirements['next_rank']
+                        })
+                        # Mark the cell for promotion
+                        enlisted_sheet.format(f'H{i}', {"backgroundColor": {"red": 0.27, "green": 0.45, "blue": 0.77}})
+
+            # Create an embed to display the users due for promotion
+            if users_due_for_promotion:
+                embed = discord.Embed(title="Enlisted Due for Promotion", color=0x0000FF)
+                for user in users_due_for_promotion:
+                    embed.add_field(name=user['name'], value=f"{user['current_rank']} -> {user['next_rank']}", inline=False)
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("No users are currently due for promotion.")
+
+        except Exception as e:
+            logging.error(f"Error checking for promotions: {str(e)}")
+            await ctx.send("Failed to check for promotions. Please try again later.")
+
+    @logbook.command(name="event", aliases=["Event"])
+    async def fill_event(self, ctx):
+        # Ask for confirmation
+        confirm = await self.confirm_action(ctx, "Event")
+        if confirm:
+            await self.fill_attendance(ctx, "Event")
+    
+    @logbook.command(name="training", aliases=["Training"])
+    async def fill_training(self, ctx):
+        # Ask for confirmation
+        confirm = await self.confirm_action(ctx, "Training")
+        if confirm:
+            await self.fill_attendance(ctx, "Training")
+
+    async def confirm_action(self, ctx, attendance_type):
+        # Send confirmation message
+        message = await ctx.send(f"Are you sure you want to take {attendance_type} attendance? Confirm that the attendance type is correct, and that it hasn't been taken already. React with \N{WHITE HEAVY CHECK MARK} to confirm.")
+        await message.add_reaction("\N{WHITE HEAVY CHECK MARK}")
+        await message.add_reaction("\N{CROSS MARK}")
+
+        def check(reaction, user):
+            # Make sure that the reaction is on the correct message and the user is the one who invoked the command
+            return user == ctx.author and reaction.message.id == message.id and str(reaction.emoji) in ['\N{WHITE HEAVY CHECK MARK}', '\N{CROSS MARK}']
 
         try:
-            search = re.compile(f'{name}')
-            cell = sheet.find(search)
-            attendance = sheet.cell(cell.row, (cell.col + 2)).value
-            await ctx.reply(f"{cell.value} has {attendance} attendances")
-        except:
-            await ctx.reply("User not found")
-      
-    @attend.command(name = "leaderboard", aliases=["lead","leader"])
-    async def leaderboard(self, ctx, minAttend = 100):
-        if minAttend <= 99:
-            await ctx.reply("This will show too many users, please choose a higher cap")
-            return
-        
-        start = datetime.now()
-        msg = await ctx.reply("Working...")  
-        sevenSheet = spreadsheet.worksheet("7e Attendance")
-        eightSheet = spreadsheet.worksheet("8e Attendance")
-        nineSheet = spreadsheet.worksheet("9e Attendance")
-        
-        def calc(sheet):
-            nameCol = sheet.find("Name")
-            totalCol = sheet.find("Total")
-            
-            nameColumnVal = sheet.col_values(nameCol.col)
-            attendanceColumnVal = sheet.col_values(totalCol.col)
-            zip_iterator = zip(nameColumnVal, attendanceColumnVal)
-            users = dict(zip_iterator)
-            users.pop("Name")
-            return users
-        
-        users = {}
-        users.update(calc(sevenSheet))
-        users.update(calc(eightSheet))
-        users.update(calc(nineSheet))     
-        cleanedUsers = {}
-        
-        for user in users.items():
-            if user[0] != "" and user[1] != "":
-                try:
-                    attendances = int(user[1])
-                except:
-                    pass     
-                else:
-                    if attendances > minAttend:
-                            cleanedUsers[user[0]] = attendances
-                            
-        sortedList = {k: v for k, v in sorted(cleanedUsers.items(), reverse = True, key=lambda item: item[1])}
-        userStr = ""
-        count = 1
-        for item in sortedList.items():
-            userStr = userStr + f"{count}. {item[0]}: {item[1]}\n"
-            count += 1
-        
-        end = datetime.now()
-        embed=discord.Embed(title="Attendance Leaderboard", description=f"Lists all players with over {minAttend} attendances", color=0xc392ff)
-        embed.add_field(name="Players: ", value=f"{userStr}", inline=True)
-        embed.set_footer(text = f"Calculation time: {end-start}")
-        
-        await msg.delete()
-        await ctx.send(embed=embed)
-    
-    @attend.command(name = "companyTotal", aliases=["comTot","comtotal","comtot","companytotal"])
-    async def companyTotal(self, ctx, minAttend = 100):
-        start = datetime.now()
-        msg = await ctx.reply("Working...")  
-        sevenSheet = spreadsheet.worksheet("7e Attendance")
-        eightSheet = spreadsheet.worksheet("8e Attendance")
-        nineSheet = spreadsheet.worksheet("9e Attendance")
-        
-        def calc(sheet):
-            totalAttendance = []
-            totalAttendanceRaw = sheet.col_values(6)
-            try: 
-                index = totalAttendanceRaw.index("Date Joined")
-            except:
-                pass
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
+        except asyncio.TimeoutError:
+            await ctx.send('Confirmation timed out.')
+            return False
+        else:
+            if reaction.emoji == '\N{WHITE HEAVY CHECK MARK}':
+                return True
             else:
-                totalAttendanceRaw = totalAttendanceRaw[:index]
+                await ctx.send('Action cancelled.')
+                return False
 
-            for item in totalAttendanceRaw:
-                try:
-                    int(item)
-                except:
-                    continue
-                else:
-                    totalAttendance.append(int(item))
-            print(totalAttendance)
-            return sum(totalAttendance)
-        
-        sevenAttendTotal = calc(sevenSheet)
-        eightAttendTotal = calc(eightSheet)
-        nineAttendTotal = calc(nineSheet)
-        
-        end = datetime.now()
-        embed=discord.Embed(title="Company Total Attendance", description=f"The individual attendances of each member of each company totaled", color=0xff0000)
-        embed.add_field(name="7th", value=f"{sevenAttendTotal}", inline=True)
-        embed.add_field(name="8th", value=f"{eightAttendTotal}", inline=True)
-        embed.add_field(name="9th", value=f"{nineAttendTotal}", inline=True)
-        embed.set_footer(text = f"Calculation time: {end-start}")
-        
-        await msg.delete()
-        await ctx.send(embed=embed)
-    
-    # Auto fills out attendance
-    @attend.command(name = "fill", aliases=["Fill"])
-    async def fill(self, ctx):
-        msg = await ctx.reply("Filling out attendance now...", mention_author = False)
-        start = datetime.now()
-        eventDays = [1, 2, 4, 5, 6]
-        vcCatIds = [948180967607136306, 995586698006233219]
-        iffGuild = self.bot.get_guild(592559858482544641)
-        sevenRole = ctx.guild.get_role(783564469854142464)
-        eightRole = ctx.guild.get_role(845007589674188839)
-        nineRole = ctx.guild.get_role(863756344494260224)
-        
-        sevenSheet = spreadsheet.worksheet("7e Attendance")
-        eightSheet = spreadsheet.worksheet("8e Attendance")
-        nineSheet = spreadsheet.worksheet("9e Attendance")
-        
-        rawSevenUsers = [[user.id for user in channel.members if sevenRole in user.roles] for channel in iffGuild.voice_channels if channel.category_id in vcCatIds]
-        rawEightUsers = [[user.id for user in channel.members if eightRole in user.roles] for channel in iffGuild.voice_channels if channel.category_id in vcCatIds]
-        rawNineUsers = [[user.id for user in channel.members if nineRole in user.roles] for channel in iffGuild.voice_channels if channel.category_id in vcCatIds]
-        sevenUsers = [item for sublist in rawSevenUsers for item in sublist]
-        eightUsers = [item for sublist in rawEightUsers for item in sublist]
-        nineUsers = [item for sublist in rawNineUsers for item in sublist]
-        
-        currentDate = start.strftime("%d/%m/%Y")
-        
-        
-        # Checks if the current day of the week is an event day
-        if datetime.today().weekday() not in eventDays:
-            await msg.edit(content="Error: today is not an event day")
-            return
-            
-        
-        def calc(date, sheet, users):
-            countTickedUsers = 0
-            failedUser = []
-            errorMsg = ""
-            
-            # Checks if there are no members of a company, if so exit
-            if not users:
-                print("No users")
-                return
-            
-            #Attempting to find the correct column with the current date
-            dateColumn = sheet.find(date, in_row = 1)
-            if dateColumn is None:
-                # Gets all the values from the row with the dates on it
-                dateRow = sheet.row_values(1)
-                # Checks from the end of the row and counts backwards to find the last empty cell
-                for dateRowIndex in range(len(dateRow)-1, 0, -1):
-                    if dateRow[dateRowIndex] != "" and dateRow[dateRowIndex] != "-":
-                            # The 8th sheet has black col seperating weeks, so checking if that is the case
-                        try:
-                            if dateRow[dateRowIndex + 1] == "-":
-                                # Updates sheet to have the current date at the correct cell. Repeated below
-                                currentDateCol = dateRowIndex + 3
-                                sheet.update_cell(1, currentDateCol, start.strftime("%d/%m/%Y"))
-                                dateColumn = sheet.cell(1,currentDateCol)
-                            # Other sheets don't have week seperators
-                            else:
-                                currentDateCol = dateRowIndex + 2
-                                sheet.update_cell(1, currentDateCol, start.strftime("%d/%m/%Y"))
-                                dateColumn = sheet.cell(1,currentDateCol)
-                        except:
-                            currentDateCol = dateRowIndex + 2
-                            sheet.update_cell(1, currentDateCol, start.strftime("%d/%m/%Y"))
-                            dateColumn = sheet.cell(1,currentDateCol)
-                        break
-            else:
-                print("Date found")
-            
-            # Attempts to finds the column with the discord id's
-            idColumnIndex = sheet.find("Discord Id's")
-            # Checks if the column was found
-            if idColumnIndex is None:
-                errorMsg = "Discord Id column could not be found"
-                return countTickedUsers, failedUser, errorMsg
-            else:
-                # Gets the all the discord id's in the column
-                idColumnValues = sheet.col_values(idColumnIndex.col)
-            
-            ticked = []
-            # Make this not a number
-            # Sets the ticked list to have 200 falses
-            # len(ticked) >= number of rows, otherwise an error will occur
-            for _ in range(1,200):
-                ticked.append(False)
+    async def fill_attendance(self, ctx, attendance_type):
+        try:
+            start = datetime.now()
+            msg = await ctx.send(f"Filling out the logbook for {attendance_type} attendance now...")
+            vc_cat_id = 772918008737038367
+            guild = self.bot.get_guild(772917331235438654)
+
+            # Check for the roles that determine the worksheet
+            high_command_role = ctx.guild.get_role(772921452135055360)
+            support_specialists_role = ctx.guild.get_role(772922207760416829)
+            enlisted_role = ctx.guild.get_role(772922211933224960)
+
+            # Define the worksheets
+            enlisted_sheet = sh.worksheet('Officer Corps and Enlisted')
+            high_command_sheet = sh.worksheet('High Command')
+            support_specialists_sheet = sh.worksheet('Regimental Auxiliary Specialists')
+
+            # Dictionary to store the sheets for easy access
+            sheets = {
+                'High Command': high_command_sheet,
+                'Officer Corps and Enlisted': enlisted_sheet,
+                'Regimental Auxiliary Specialists': support_specialists_sheet
+            }
+
+            column = 'E' if attendance_type == "Event" else 'D'
+            missing_users = []
+
+            # Prepare to gather all Discord IDs for batch fetching
+            discord_ids = {
+                'High Command': [],
+                'Officer Corps and Enlisted': [],
+                'Regimental Auxiliary Specialists': []
+            }
+
+            for vc in guild.voice_channels:
+                if vc.category_id == vc_cat_id:
+                    for member in vc.members:
+                        if high_command_role in member.roles and enlisted_role in member.roles:
+                            discord_ids['High Command'].append(str(member.id))
+                        elif support_specialists_role in member.roles and enlisted_role in member.roles:
+                            discord_ids['Regimental Auxiliary Specialists'].append(str(member.id))
+                        elif enlisted_role in member.roles and high_command_role not in member.roles and support_specialists_role not in member.roles:
+                            discord_ids['Officer Corps and Enlisted'].append(str(member.id))
+
+            # Batch fetch all values in one go
+            for sheet_name, ids in discord_ids.items():
+                if ids:
+                    worksheet = sheets[sheet_name]
+                    values = worksheet.get_all_values()
                 
-            count = 1
-            for id in users:
-                try:
-                    if str(id) in idColumnValues:
-                        ticked[idColumnValues.index(str(id))] = True
-                        countTickedUsers += 1
-                    else:
-                        username = self.bot.get_user(id)
-                        failedUser.append(username.name)
-                        print(f"Failed id: {id}")
-                    count += 1
-                except Exception as e:
-                    print(f"Failed (0) with: {e}")
-                    print(id)
-                    errorMsg = "An unknown error has occurred (0)"
-                    return countTickedUsers, failedUser, errorMsg
-            
-            count = 1
-            cells = []
-            for value in ticked:
-                try:
-                    if value == True:
-                        cells.append(Cell(row=count, col=dateColumn.col, value=True))
-                    count += 1
-                except Exception as e:
-                    print(f"Failed (1) with: {e}")
-                    errorMsg = "An unknown error has occurred (1)"
-                    return countTickedUsers, failedUser, errorMsg
-            
-            # Ticks all users
+                    # Identify the correct column index for 'Discord User ID'
+                    headers = values[0]
+                    discord_id_col = headers.index('Discord User ID')
+                
+                    # Create a dictionary to map Discord IDs to row numbers
+                    id_to_row = {str(values[row][discord_id_col]): row + 1 for row in range(1, len(values))}
+
+                    # Prepare batch updates
+                    batch_updates = []
+                    for discord_id in ids:
+                        if discord_id in id_to_row:
+                            row = id_to_row[discord_id]
+                            target_cell_value = values[row-1][ord(column.upper()) - ord('A')]
+                            current_value = int(target_cell_value) if target_cell_value.isdigit() else 0
+                            new_value = current_value + 1
+                            batch_updates.append({
+                                'range': f'{column}{row}',
+                                'values': [[new_value]]
+                            })
+                        else:
+                            missing_users.append(f"ID: {discord_id}")
+
+                    # Perform batch update
+                    if batch_updates:
+                        retries = 0
+                        while batch_updates:
+                            batch = batch_updates[:100]
+                            try:
+                                worksheet.batch_update(batch)
+                                batch_updates = batch_updates[100:]
+                            except HttpError as e:
+                                if e.resp.status in [429, 500, 503]:
+                                    await asyncio.sleep(2 ** retries + randint(0, 1000) / 1000)
+                                    retries += 1
+                                    logging.warning(f"Retrying batch update due to API error: {str(e)}")
+                                else:
+                                    logging.error(f"Failed to update due to API error: {str(e)}")
+                                    raise
+
+            end = datetime.now()
+            time_taken = end - start
+            await msg.edit(content=f"{attendance_type} Attendance updated successfully in {time_taken}!")
+
+            if missing_users:
+                await ctx.send(f"**WARNING**: Could not find logbook entries for the following users: {', '.join(missing_users)}")
+        except Exception as e:
+            logging.error(f"Error updating attendance for {attendance_type}: {str(e)}")
+            await msg.edit(content=f"**Failed to update {attendance_type} attendance. Please try again later.**")
+        
+    # Adding a new command group for '_attendance'
+    @commands.group(name="attendance", invoke_without_command=True)
+    async def attendance_group(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send("No subcommand specified. Try _attendance check @user")
+
+    @attendance_group.command(name="check")
+    async def attendance_events(self, ctx, member: discord.Member):
+        # Extract the Discord ID of the pinged user
+        discord_id = str(member.id)
+
+        # Define the worksheets
+        try:
+            enlisted_sheet = sh.worksheet('Officer Corps and Enlisted')
+            high_command_sheet = sh.worksheet('High Command')
+            support_specialists_sheet = sh.worksheet('Regimental Auxiliary Specialists')
+        except gspread.WorksheetNotFound:
+            await ctx.send("Error: Worksheet not found - notify an Officer.")
+            return
+
+        # Initialize counters for totals
+        total_line_battles = 0
+        total_trainings = 0
+        total_events = 0
+        recruitment_date = None
+        time_since_joining = ""
+
+        # Define the sheets to loop through
+        sheets = [high_command_sheet, enlisted_sheet, support_specialists_sheet]
+        user_found = False  # Track if the user is found in any sheet
+
+        # Search for the Discord ID and fetch event counts and recruit date
+        for sheet in sheets:
             try:
-                sheet.update_cells(cells)
-            except Exception as e:
-                    print(f"Failed (2) with: {e}")
-                    errorMsg = "An unknown error has occurred (2)"
-                    return countTickedUsers, failedUser, errorMsg
-            
-            return countTickedUsers, failedUser, errorMsg
+                cell = sheet.find(discord_id)  # Find the Discord ID in the sheet
+                if cell:
+                    user_found = True
+                    line_battles = sheet.cell(cell.row, 5).value or 0  # Column E is the 5th column
+                    trainings = sheet.cell(cell.row, 4).value or 0  # Column D is the 4th column
+                    total_events_count = sheet.cell(cell.row, 6).value or 0  # Column F is the 6th column
+                    date_string = sheet.cell(cell.row, 11).value  # Column K is the 11th column
 
-        error = False
-        embed=discord.Embed(title="Auto Attendance", description=f"Done! Please inform the relevant people if there are failed users", color=0xff0000)
-        
-        #7th
-        try:
-            seven = calc(currentDate, sevenSheet, sevenUsers)
-        except:
-            msg = await msg.edit(content=msg.content + f"An error has occurred for 7th...")
-            
-        print("7th done")  
-        if seven is None:
-            msg = await msg.edit(content=msg.content + f"No 7th users...")
-            embed.add_field(name="7th", value=f"No players in 7th", inline=True)
-        elif isinstance(seven[0], int) and not seven[2]:
-                msg = await msg.edit(content=msg.content + f"7th done ({seven[0]})...")
-                embed.add_field(name="7th", value=f"No. Ticked= {seven[0]}, Failed Users: {seven[1]}", inline=True)
-        elif seven[2]:
-            msg = await msg.edit(content=msg.content + f"An error has occurred for 7th...")
-            embed.add_field(name="7th", value=seven[2], inline=True)
-            error = True
-            
-        #8
-        try:
-            eight = calc(currentDate, eightSheet, eightUsers)
-        except:
-            msg = await msg.edit(content=msg.content + f"An error has occurred for 8th...")
-            
-        print("8th done")
-        if eight is None:
-            msg = await msg.edit(content=msg.content + f"No 8th users...")
-            embed.add_field(name="8th", value=f"No players in 8th", inline=True)
-        elif isinstance(eight[0], int) and not eight[2]:
-                msg = await msg.edit(content=msg.content + f"8th done ({eight[0]})...")
-                embed.add_field(name="8th", value=f"No. Ticked= {eight[0]}, Failed Users: {eight[1]}", inline=True)
-        elif eight[2]:
-            msg = await msg.edit(content=msg.content + f"An error has occurred for 8th...")
-            embed.add_field(name="8th", value=eight[2], inline=True)
-            error = True
-        
-        #9
-        try:
-            nine = calc(currentDate, nineSheet, nineUsers)
-        except:
-            msg = await msg.edit(content=msg.content + f"An error has occurred for 9th...")
-            
-        print("9th done")
-        if nine is None:
-            msg = await msg.edit(content=msg.content + f"No 9th users...")
-            embed.add_field(name="9th", value=f"No players in 9th", inline=True)
-        elif isinstance(nine[0], int) and not nine[2]:
-                msg = await msg.edit(content=msg.content + f"9th done ({nine[0]})...")
-                embed.add_field(name="9th", value=f"No. Ticked= {nine[0]}, Failed Users: {nine[1]}", inline=True)
-        elif nine[2]:
-            msg = await msg.edit(content=msg.content + f"An error has occurred for 9th...")
-            embed.add_field(name="9th", value=nine[2], inline=True)
-            error = True
-                
-        end = datetime.now()
-        #Check if there are failed users, if so alert user
-        if error:
-            embed.set_footer(text=f"Took {end-start}. WARNING THERE ARE FAILED USERS/COMPANIES.")
-        else:
-            embed.set_footer(text=f"Took {end-start}")
-        
-        # Updates the message with the results of the attendance
-        await msg.edit(content=None, embed=embed)
+                    # Sum the counts from each sheet
+                    total_line_battles += int(line_battles)
+                    total_trainings += int(trainings)
+                    total_events += int(total_events_count)
+
+                    if date_string:
+                        recruitment_date = datetime.strptime(date_string, '%d/%m/%Y')
+                        days_since = (datetime.now() - recruitment_date).days
+                        time_since_joining = f"This member was recruited on {date_string}. Wow, that's {days_since} days since joining!"
+                    else:
+                        time_since_joining = "Recruitment date unknown."
+            except gspread.CellNotFound:
+                continue  # Skip to the next sheet if not found
+
+        if not user_found:
+            await ctx.send(f"No entry for {member.display_name} found in the logbook - contact an Officer.")
+            return
+
+        # Create an Embed message
+        embed = Embed(title=f"Attendance Check for {member.display_name}",
+                    color=0xadd8e6,  # Light Blue
+                    description="")
+        embed.add_field(name="Line Battles", value=total_line_battles, inline=False)
+        embed.add_field(name="Trainings", value=total_trainings, inline=False)
+        embed.add_field(name="Total Events", value=total_events, inline=False)
+        embed.add_field(name="Recruitment Details", value=time_since_joining, inline=False)
+        embed.set_footer(text="Source: 3e Logbook")
+
+        await ctx.send(embed=embed)
 
 async def setup(bot:commands.Bot):
     await bot.add_cog(attendanceCog(bot))
