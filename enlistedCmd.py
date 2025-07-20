@@ -1004,6 +1004,7 @@ class enlistedCog(commands.Cog):
             coEmbed=discord.Embed(title="Commissioned Officers", description="", color=0x112074)
             coEmbed.set_thumbnail(url="attachment://commissionedofficer.png")
             coEmbed.add_field(name="Lieutenant Danx", value="Leader of the Legere", inline=False)
+            coEmbed.add_field(name="Lieutenant Winnie", value="", inline=False)
 
             # Adjutant Council (Disabled) ----------------------------------------------------
             #adjEmbed=discord.Embed(title="Adjutant Council", description="", color=0x2b56c8)
@@ -1016,31 +1017,29 @@ class enlistedCog(commands.Cog):
             ncoEmbed.set_thumbnail(url="attachment://nco.png")
             ncoEmbed.add_field(name="Sergeant-Major Sharpe", value="Leader of the Artillerie", inline=False)
             ncoEmbed.add_field(name="Sergeant-Major Lexi", value="Leader of the Garde", inline=False)
-            ncoEmbed.add_field(name="Sergeant Kruber", value="", inline=False)
-            ncoEmbed.add_field(name="Sergeant Ryland", value="", inline=False)
             ncoEmbed.add_field(name="Sergeant Mugi", value="", inline=False)
+            ncoEmbed.add_field(name="Sergeant Dragz", value="", inline=False)
 
             # Corporals ----------------------------------------------------
             cplEmbed=discord.Embed(title="Corporals", description="", color=0x1e39cd)
             cplEmbed.set_thumbnail(url="attachment://cpl.jpg")
             cplEmbed.add_field(name="Caporal-Fourrier Sparc", value="", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Dragz", value="", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Rynodb05", value="", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Kruber", value="", inline=False)
             cplEmbed.add_field(name="Caporal HelixOrion", value="", inline=False)
             cplEmbed.add_field(name="Caporal Ganthador", value="", inline=False)
             cplEmbed.add_field(name="Caporal Spyro", value="", inline=False)
+            cplEmbed.add_field(name="Caporal CaptainThunder", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Garat", value="", inline=False)
+            cplEmbed.add_field(name="Caporal SlothyBoi44", value="", inline=False)
 
             # Brigadiers ----------------------------------------------------
             bdrEmbed=discord.Embed(title="Brigadiers", description="", color=0x2444f3)
             bdrEmbed.set_thumbnail(url="attachment://bdr.jpg")
             bdrEmbed.add_field(name="Brigadiere P4tr1ck", value="", inline=False)
-            bdrEmbed.add_field(name="Brigadiere Adolphus", value="", inline=False)
             bdrEmbed.add_field(name="Brigadiere Sponge O", value="", inline=False)
             bdrEmbed.add_field(name="Brigadiere OneyouForgot", value="", inline=False)
-            bdrEmbed.add_field(name="Brigadiere Garat", value="", inline=False)
             bdrEmbed.add_field(name="Brigadiere Deathking", value="", inline=False)
             bdrEmbed.add_field(name="Brigadiere Chips", value="", inline=False)
-            bdrEmbed.add_field(name="Brigadiere SlothyBoi44", value="", inline=False)
             
 
             # Garde ---------------------------------------------------------------------
