@@ -553,7 +553,7 @@ class enlistedCog(commands.Cog):
         coRole = ctx.guild.get_role(772921453095944203)
         ncoRole = ctx.guild.get_role(772921882072449075)
         cplRole = ctx.guild.get_role(910758407055736902)
-        bdrRole = ctx.guild.get_role(1393465069370605629)
+        ocdtRole = ctx.guild.get_role(1393465069370605629)
 
         async with ctx.channel.typing():
             if ctx.channel.id == musterChannelId:
@@ -676,17 +676,17 @@ class enlistedCog(commands.Cog):
 
                 return flatCplFullList
 
-            def bdrCalc(companyRole):
-                bdrList = []
+            def ocdtCalc(companyRole):
+                ocdtList = []
                 for user in ctx.guild.members:
                         if companyRole in user.roles:
-                            if bdrRole in user.roles:
-                                if "Bdr. " in user.display_name:
-                                    nick = (user.display_name).replace("Bdr. ", "Brigadier ")
-                                    bdrList.append(nick)
-                bdrList.sort()
+                            if ocdtRole in user.roles:
+                                if "Ocdt. " in user.display_name:
+                                    nick = (user.display_name).replace("Ocdt. ", "Officer Cadet ")
+                                    ocdtList.append(nick)
+                ocdtList.sort()
 
-                return bdrList
+                return ocdtList
 
             def enlistedCalc(companyRole):
                 insList = []
@@ -810,7 +810,7 @@ class enlistedCog(commands.Cog):
                             enlistedCount += 1
                         elif "LcS. " in user.display_name:
                             enlistedCount += 1
-                        elif "Bdr. " in user.display_name:
+                        elif "Ocdt. " in user.display_name:
                             enlistedCount += 1
                         elif "Chg. " in user.display_name:
                             enlistedCount += 1
@@ -844,7 +844,7 @@ class enlistedCog(commands.Cog):
 
             #Stuff for creating muster roll
             companies = ["arty", "skirm", "cav", "guard", "supportstaff"]
-            lists = ["So", "Co", "Nco", "Cpl", "Bdr", "Enlisted"]
+            lists = ["So", "Co", "Nco", "Cpl", "Ocdt", "Enlisted"]
             muster = {}
 
             #Creates muster roll information
@@ -860,7 +860,7 @@ class enlistedCog(commands.Cog):
                     elif list == "Co": func = coCalc
                     elif list == "Nco": func = ncoCalc
                     elif list == "Cpl": func = cplCalc
-                    elif list == "Bdr": func = bdrCalc
+                    elif list == "Ocdt": func = ocdtCalc
                     elif list == "Enlisted": func = enlistedCalc
 
                     muster[f"{company}{list}"] = func(role)
@@ -926,15 +926,15 @@ class enlistedCog(commands.Cog):
                     "/home/container/files/cpl.jpg", filename="cpl.jpg"
                 )
 
-            # Bdr pic
+            # Ocdt pic
             try:
-                bdrImg = discord.File(
-                    "files/bdr.jpg",
-                    filename="bdr.jpg",
+                ocdtImg = discord.File(
+                    "files/ocdt.jpg",
+                    filename="ocdt.jpg",
                 )
             except:
-                bdrImg = discord.File(
-                    "/home/container/files/bdr.jpg", filename="bdr.jpg"
+                ocdtImg = discord.File(
+                    "/home/container/files/ocdt.jpg", filename="ocdt.jpg"
                 )
                 
             # Guards
@@ -1032,14 +1032,14 @@ class enlistedCog(commands.Cog):
             cplEmbed.add_field(name="Caporal Garat", value="", inline=False)
             cplEmbed.add_field(name="Caporal SlothyBoi44", value="", inline=False)
 
-            # Brigadiers ----------------------------------------------------
-            bdrEmbed=discord.Embed(title="Brigadiers", description="", color=0x2444f3)
-            bdrEmbed.set_thumbnail(url="attachment://bdr.jpg")
-            bdrEmbed.add_field(name="Brigadiere P4tr1ck", value="", inline=False)
-            bdrEmbed.add_field(name="Brigadiere Sponge O", value="", inline=False)
-            bdrEmbed.add_field(name="Brigadiere OneyouForgot", value="", inline=False)
-            bdrEmbed.add_field(name="Brigadiere Deathking", value="", inline=False)
-            bdrEmbed.add_field(name="Brigadiere Chips", value="", inline=False)
+            # Officer Cadets ----------------------------------------------------
+            ocdtEmbed=discord.Embed(title="Officer Cadets", description="", color=0x2444f3)
+            ocdtEmbed.set_thumbnail(url="attachment://ocdt.jpg")
+            ocdtEmbed.add_field(name="Officer Cadet P4tr1ck", value="", inline=False)
+            ocdtEmbed.add_field(name="Officer Cadet Sponge O", value="", inline=False)
+            ocdtEmbed.add_field(name="Officer Cadet OneyouForgot", value="", inline=False)
+            ocdtEmbed.add_field(name="Officer Cadet Deathking", value="", inline=False)
+            ocdtEmbed.add_field(name="Officer Cadet Chips", value="", inline=False)
             
 
             # Garde ---------------------------------------------------------------------
@@ -1091,10 +1091,10 @@ class enlistedCog(commands.Cog):
                     value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
                     inline=False,
                 )
-            list = muster.get('guardBdr')
+            list = muster.get('guardOcdt')
             if list and list.strip():
                 guardEmbed.add_field(
-                    name=f"Brigadiers", value=f"\u200b{muster['guardBdr']}", inline=False
+                    name=f"Officer Cadets", value=f"\u200b{muster['guardOcdt']}", inline=False
                 )
                 guardEmbed.add_field(
                     name=f"\u200b",
@@ -1156,10 +1156,10 @@ class enlistedCog(commands.Cog):
                     value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
                     inline=False,
                 )
-            list = muster.get('skirmBdr')
+            list = muster.get('skirmOcdt')
             if list and list.strip():
                 skirmEmbed.add_field(
-                    name=f"Brigadiers", value=f"\u200b{muster['skirmBdr']}", inline=False
+                    name=f"Officer Cadets", value=f"\u200b{muster['skirmOcdt']}", inline=False
                 )
                 skirmEmbed.add_field(
                     name=f"\u200b",
@@ -1221,10 +1221,10 @@ class enlistedCog(commands.Cog):
                     value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
                     inline=False,
                 )
-            list = muster.get('cavBdr')
+            list = muster.get('cavOcdt')
             if list and list.strip():
                 cavEmbed.add_field(
-                    name=f"Brigadiers", value=f"\u200b{muster['cavBdr']}", inline=False
+                    name=f"Officer Cadets", value=f"\u200b{muster['cavOcdt']}", inline=False
                 )
                 cavEmbed.add_field(
                     name=f"\u200b",
@@ -1284,10 +1284,10 @@ class enlistedCog(commands.Cog):
                     value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
                     inline=False,
                 )
-            list = muster.get('artyBdr')
+            list = muster.get('artyOcdt')
             if list and list.strip():
                 artyEmbed.add_field(
-                    name=f"Brigadiers", value=f"\u200b{muster['artyBdr']}", inline=False
+                    name=f"Officer Cadets", value=f"\u200b{muster['artyOcdt']}", inline=False
                 )
                 artyEmbed.add_field(
                     name=f"\u200b",
@@ -1318,7 +1318,7 @@ class enlistedCog(commands.Cog):
             #await ctx.send(file=adjImg, embed=adjEmbed)
             await ctx.send(file=ncoImg, embed=ncoEmbed)
             await ctx.send(file=cplImg, embed=cplEmbed)
-            await ctx.send(file=bdrImg, embed=bdrEmbed)
+            await ctx.send(file=ocdtImg, embed=ocdtEmbed)
             await ctx.send(file=guardImg, embed=guardEmbed)
             await ctx.send(file=skirmImg, embed=skirmEmbed)
             await ctx.send(file=cavImg, embed=cavEmbed)
