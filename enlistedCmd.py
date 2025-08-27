@@ -696,6 +696,7 @@ class enlistedCog(commands.Cog):
                 tbrcplList = []
                 pteaigleList = []
                 chgmajList = []
+                chefList = []
                 gdrList = []
                 vgrdList = []
                 trlrList = []
@@ -747,6 +748,9 @@ class enlistedCog(commands.Cog):
                         elif "Chg-Maj. " in user.display_name:
                             nick = (user.display_name).replace("Chg-Maj. ", "Chirurgien-major ")
                             chgmajList.append(nick)
+                        elif "Chef. " in user.display_name:
+                            nick = (user.display_name).replace("Chef. ", "Chef ")
+                            chgmajList.append(nick)
                         elif "Gdr. " in user.display_name:
                             nick = (user.display_name).replace("Gdr. ", "Gendarmerie ")
                             gdrList.append(nick)
@@ -776,6 +780,7 @@ class enlistedCog(commands.Cog):
                 mscList.sort()
                 tbrcplList.sort()
                 pteaigleList.sort()
+                chefList.sort()
                 chgmajList.sort()
                 gdrList.sort()
                 vgrdList.sort()
@@ -817,6 +822,8 @@ class enlistedCog(commands.Cog):
                         elif "Ins. " in user.display_name:
                             enlistedCount += 1
                         elif "Msc. " in user.display_name:
+                            enlistedCount += 1
+                        elif "Chef. " in user.display_name:
                             enlistedCount += 1
                         elif "Tbr-cpl. " in user.display_name:
                             enlistedCount += 1
