@@ -1011,7 +1011,7 @@ class enlistedCog(commands.Cog):
             coEmbed=discord.Embed(title="Commissioned Officers", description="", color=0x112074)
             coEmbed.set_thumbnail(url="attachment://commissionedofficer.png")
             coEmbed.add_field(name="Lieutenant Danx", value="Leader of the Legere", inline=False)
-            coEmbed.add_field(name="Lieutenant Winnie", value="", inline=False)
+            coEmbed.add_field(name="Sous-Lieutenant AsianSharpe", value="Leader of the Artillerie", inline=False)
 
             # Adjutant Council (Disabled) ----------------------------------------------------
             #adjEmbed=discord.Embed(title="Adjutant Council", description="", color=0x2b56c8)
@@ -1022,31 +1022,29 @@ class enlistedCog(commands.Cog):
             # Non-Commissioned Officers ----------------------------------------------------
             ncoEmbed=discord.Embed(title="Non-Commissioned Officers", description="", color=0x192fa7)
             ncoEmbed.set_thumbnail(url="attachment://nco.png")
-            ncoEmbed.add_field(name="Sergeant-Major Sharpe", value="Leader of the Artillerie", inline=False)
-            ncoEmbed.add_field(name="Sergeant-Major Lexi", value="Leader of the Garde", inline=False)
+            ncoEmbed.add_field(name="Sergeant Dragz", value="Leader of the Garde", inline=False)                       
             ncoEmbed.add_field(name="Sergeant Mugi", value="", inline=False)
-            ncoEmbed.add_field(name="Sergeant Dragz", value="", inline=False)
+            ncoEmbed.add_field(name="Sergeant Sparc", value="", inline=False)
 
             # Corporals ----------------------------------------------------
             cplEmbed=discord.Embed(title="Corporals", description="", color=0x1e39cd)
             cplEmbed.set_thumbnail(url="attachment://cpl.jpg")
-            cplEmbed.add_field(name="Caporal-Fourrier Sparc", value="", inline=False)
             cplEmbed.add_field(name="Caporal-Fourrier Kruber", value="", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Ganthador", value="", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Spyro", value="", inline=False)
             cplEmbed.add_field(name="Caporal HelixOrion", value="", inline=False)
-            cplEmbed.add_field(name="Caporal Ganthador", value="", inline=False)
-            cplEmbed.add_field(name="Caporal Spyro", value="", inline=False)
             cplEmbed.add_field(name="Caporal CaptainThunder", value="", inline=False)
             cplEmbed.add_field(name="Caporal Garat", value="", inline=False)
-            cplEmbed.add_field(name="Caporal SlothyBoi44", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Jackson", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Chips", value="", inline=False)
 
             # Officer Cadets ----------------------------------------------------
             ocdtEmbed=discord.Embed(title="Officer Cadets", description="", color=0x2444f3)
             ocdtEmbed.set_thumbnail(url="attachment://ocdt.jpg")
             ocdtEmbed.add_field(name="Officer Cadet P4tr1ck", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet Sponge O", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet OneyouForgot", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet Deathking", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet Chips", value="", inline=False)
+            ocdtEmbed.add_field(name="Officer Cadet GamingRabbit15", value="", inline=False)
+            ocdtEmbed.add_field(name="Officer Cadet AussieOrange", value="", inline=False)
+            ocdtEmbed.add_field(name="Officer Cadet Fairus", value="", inline=False)
             
 
             # Garde ---------------------------------------------------------------------
