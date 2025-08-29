@@ -7,6 +7,7 @@ from googleapiclient.errors import HttpError
 from datetime import datetime
 import logging
 import asyncio
+import os
 
 
 import random
@@ -16,9 +17,14 @@ from random import randint
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
 
+# Grab SPREADSHEET_KEY
+SPREADSHEET_KEY = os.getenv("SPREADSHEET_KEY")   # <- read key from env
+if not SPREADSHEET_KEY:
+    raise RuntimeError("Missing SPREADSHEET_KEY environment variable")
+
 # Service Account to Access Logbook
 gc = gspread.service_account(filename='/home/container/storage/e-logbook-420412-0954626b746a.json')
-sh = gc.open_by_key('redacted')
+sh = gc.open_by_key(SPREADSHEET_KEY)
 
 class attendanceCog(commands.Cog):
     def __init__(self, bot:commands.Bot):

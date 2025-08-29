@@ -488,5 +488,8 @@ async def load(ctx, extension: str = None):
         )
         await ctx.reply(embed=embed)
 
+bot_token = os.getenv("BOT_TOKEN")   # <- read the token from env
+if not bot_token:
+    raise RuntimeError("Missing BOT_TOKEN environment variable")
 
-bot.run("redacted")
+bot.run(bot_token)
