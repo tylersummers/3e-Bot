@@ -40,13 +40,13 @@ class enlistedCog(commands.Cog):
     @commands.command(aliases=["leadattend","leadershipAttendnace"])
     async def leadAttend(self, ctx):
         leadershipChannel = self.bot.get_channel(961625199109894144)
-
+        
         embed = discord.Embed(
-            title="Officer Attendance",
+            title="Attendance",
             description="Can you make it tonight? React with :thumbsup: , :thumbsdown: , or :person_shrugging:",
             color=0x109319
         )
-        embed.add_field(name="Coming: ", value=f"No Officers attending! :(", inline=False)
+        embed.add_field(name="Coming: ", value=f"No-one attending! :(", inline=False)
         embed.add_field(name="Count: ", value=f"0", inline=False)
         embed.add_field(name="Not coming: ", value=f"No apologies received. :)", inline=False)
         embed.add_field(name="Count: ", value=f"0", inline=False)
@@ -58,8 +58,26 @@ class enlistedCog(commands.Cog):
         await msg.add_reaction("\N{THUMBS UP SIGN}")
         await msg.add_reaction("\N{THUMBS DOWN SIGN}")
         await msg.add_reaction("\N{SHRUG}")
-
         varStore.leaderPingMsgId = msg.id
+
+        embed = discord.Embed(
+            title="Training & HQ",
+            description="Are you happy to take training :teacher: ? Are you happy to help with training :handshake: ? Are you happy to take HQ <:3e:1205672874166325281> ?",
+            color=0x109319
+        )
+        embed.add_field(name="Happy to take training: ", value=f"No-one happy to take training :(", inline=False)
+        embed.add_field(name="Count: ", value=f"0", inline=False)
+        embed.add_field(name="Happy to help with training: ", value=f"No-one happy to help with training", inline=False)
+        embed.add_field(name="Count: ", value=f"0", inline=False)
+        embed.add_field(name="Happy to take HQ: ", value=f"No-one happy to take HQ", inline=False)
+        embed.add_field(name="Count: ", value=f"0", inline=False)
+
+        msg = await leadershipChannel.send(embed=embed)
+
+        await msg.add_reaction("🧑‍🏫")
+        await msg.add_reaction("🤝")
+        await msg.add_reaction("<:3e:1205672874166325281>")
+        varStore.trainingMsgId = msg.id
 
     #Move all users in current vc to campfire
     @commands.has_any_role(

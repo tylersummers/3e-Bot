@@ -93,71 +93,80 @@ dmChannelId = 961625199109894144
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    if (
-        reaction.message.channel.id == 961625199109894144
-        and reaction.message.id == varStore.leaderPingMsgId
-    ):
-        msg = await (reaction.message.channel).fetch_message(reaction.message.id)
-        thumbUp = discord.utils.get(msg.reactions, emoji="\N{THUMBS UP SIGN}")
+    # Ignore bot's own reactions
+    if user == bot.user:
+        return
+
+    channel_id = 963321651620118568
+
+    # ------------------------------------------------------------------
+    # Attendance message handling (thumbsup / thumbsdown / shrug)
+    # ------------------------------------------------------------------
+    if reaction.message.channel.id == channel_id and \
+       reaction.message.id == varStore.leaderPingMsgId:
+
+        msg = await reaction.message.fetch()   # same as before
+        thumbUp   = discord.utils.get(msg.reactions, emoji="\N{THUMBS UP SIGN}")
         thumbDown = discord.utils.get(msg.reactions, emoji="\N{THUMBS DOWN SIGN}")
-        shrug = discord.utils.get(msg.reactions, emoji="\N{SHRUG}")
-        thumbUpCount = str(thumbUp.count - 1)
-        thumbDownCount = str(thumbDown.count - 1)
-        shrugCount = str(shrug.count - 1)
+        shrug     = discord.utils.get(msg.reactions, emoji="\N{SHRUG}")
 
-        for reactions in msg.reactions:
-            if str(reactions) == "\N{THUMBS UP SIGN}":
-                thumbUpIds = [
-                    user async for user in reactions.users() if user != bot.user
-                ]
-                thumbUpNames = []
+        async def names_from_reaction(reac):
+            if not reac:
+                return "-"
+            ids = [u async for u in reac.users() if u != bot.user]
+            return ", ".join(u.name for u in ids) or "-"
 
-                for user in thumbUpIds:
-                    thumbUpNames.append(user.name)
-                thumbUpNameStr = ", ".join(thumbUpNames)
-
-        for reactions in msg.reactions:
-            if str(reactions) == "\N{THUMBS DOWN SIGN}":
-                thumbDownIds = [
-                    user async for user in reactions.users() if user != bot.user
-                ]
-                thumbDownNames = []
-
-                for user in thumbDownIds:
-                    thumbDownNames.append(user.name)
-                thumbDownNameStr = ", ".join(thumbDownNames)
-
-        for reactions in msg.reactions:
-            if str(reactions) == "\N{SHRUG}":
-                shrugIds = [
-                    user async for user in reactions.users() if user != bot.user
-                ]
-                shrugNames = []
-
-                for user in shrugIds:
-                    shrugNames.append(user.name)
-                shrugStr = ", ".join(shrugNames)
-
-        if thumbUpNameStr == "":
-            thumbUpNameStr = "-"
-        if thumbDownNameStr == "":
-            thumbDownNameStr = "-"
-        if shrugStr == "":
-            shrugStr = "-"
+        thumbUpNameStr   = await names_from_reaction(thumbUp)
+        thumbDownNameStr = await names_from_reaction(thumbDown)
+        shrugStr         = await names_from_reaction(shrug)
 
         embed = discord.Embed(
             title="Officer Attendance",
             description="Can you make it tonight? React with :thumbsup: / :thumbsdown: / :shrug:",
             color=0x109319,
         )
-        embed.add_field(name="Coming: ", value=f"\u200b{thumbUpNameStr}", inline=False)
-        embed.add_field(name="Tonight's Officer Count: ", value=f"\u200b{thumbUpCount}", inline=False)
-        embed.add_field(
-            name="Not coming: ", value=f"\u200b{thumbDownNameStr}", inline=False
+        embed.add_field(name="Coming:", value=f"\u200b{thumbUpNameStr}", inline=False)
+        embed.add_field(name="Tonight's Officer Count:", value=f"\u200b{str((thumbUp.count-1) if thumbUp else 0)}", inline=False)
+        embed.add_field(name="Not coming:", value=f"\u200b{thumbDownNameStr}", inline=False)
+        embed.add_field(name="Tonight's Absent Count:", value=f"\u200b{str((thumbDown.count-1) if thumbDown else 0)}", inline=False)
+        embed.add_field(name="Maybe coming/might be late:", value=f"\u200b{shrugStr}", inline=False)
+        embed.add_field(name="Count:", value=f"\u200b{str((shrug.count-1) if shrug else 0)}", inline=False)
+
+        await msg.edit(embed=embed)
+
+    # ------------------------------------------------------------------
+    # Training / HQ message handling (teacher / handshake / custom emoji)
+    # ------------------------------------------------------------------
+    elif reaction.message.channel.id == channel_id and \
+         reaction.message.id == varStore.trainingMsgId:
+
+        msg = await reaction.message.fetch()
+
+        teacherReac   = discord.utils.get(msg.reactions, emoji="🧑‍🏫")
+        helpReac      = discord.utils.get(msg.reactions, emoji="🤝")
+        hqReac        = discord.utils.get(msg.reactions, emoji=discord.utils.get(msg.guild.emojis, name="3e"))
+
+        async def names_from_reaction(reac):
+            if not reac:
+                return "-"
+            ids = [u async for u in reac.users() if u != bot.user]
+            return ", ".join(u.name for u in ids) or "-"
+
+        teacherStr = await names_from_reaction(teacherReac)
+        helpStr    = await names_from_reaction(helpReac)
+        hqStr      = await names_from_reaction(hqReac)
+
+        embed = discord.Embed(
+            title="Training & HQ",
+            description="Are you happy to take training :teacher: ? Are you happy to help with training :handshake: ? Are you happy to take HQ <:3e:1205672874166325281> ?",
+            color=0x109319,
         )
-        embed.add_field(name="Tonight's Absent Count: ", value=f"\u200b{thumbDownCount}", inline=False)
-        embed.add_field(name="Maybe coming/might be late: ", value=f"\u200b{shrugStr}", inline=False)
-        embed.add_field(name="Count: ", value=f"\u200b{shrugCount}", inline=False)
+        embed.add_field(name="Happy to take training:", value=f"\u200b{teacherStr}", inline=False)
+        embed.add_field(name="Count:", value=f"\u200b{str((teacherReac.count-1) if teacherReac else 0)}", inline=False)
+        embed.add_field(name="Happy to help with training:", value=f"\u200b{helpStr}", inline=False)
+        embed.add_field(name="Count:", value=f"\u200b{str((helpReac.count-1) if helpReac else 0)}", inline=False)
+        embed.add_field(name="Happy to take HQ:", value=f"\u200b{hqStr}", inline=False)
+        embed.add_field(name="Count:", value=f"\u200b{str((hqReac.count-1) if hqReac else 0)}", inline=False)
 
         await msg.edit(embed=embed)
 

@@ -50,8 +50,8 @@ class backgroundTasks(commands.Cog):
         if current_time == "13:00" and datetime.today().weekday() in eventDays:
             leadershipChannel = self.bot.get_channel(961625199109894144)
 
-            embed = discord.Embed(title="Officer Attendance", description="Can you make it tonight? React with :thumbsup: or :thumbsdown:", color=0x109319)
-            embed.add_field(name="Coming: ", value=f"No Officers attending! :(", inline=False)
+            embed = discord.Embed(title="Attendance", description="Can you make it tonight? React with :thumbsup: or :thumbsdown:", color=0x109319)
+            embed.add_field(name="Coming: ", value=f"No-one attending! :(", inline=False)
             embed.add_field(name="Tonight's Officer Count: ", value=f"0", inline=False)
             embed.add_field(name="Not coming: ", value=f"No apologies received. :)", inline=False)
             embed.add_field(name="Tonight's Absent Count: ", value=f"0", inline=False)
@@ -64,6 +64,25 @@ class backgroundTasks(commands.Cog):
             await msg.add_reaction("\N{THUMBS DOWN SIGN}")
             await msg.add_reaction("\N{SHRUG}")
             varStore.leaderPingMsgId = msg.id
+
+            embed = discord.Embed(
+                title="Training & HQ",
+                description="Are you happy to take training :teacher: ? Are you happy to help with training :handshake: ? Are you happy to take HQ <:3e:1205672874166325281> ?",
+                color=0x109319
+            )
+            embed.add_field(name="Happy to take training: ", value=f"No-one happy to take training :(", inline=False)
+            embed.add_field(name="Count: ", value=f"0", inline=False)
+            embed.add_field(name="Happy to help with training: ", value=f"No-one happy to help with training", inline=False)
+            embed.add_field(name="Count: ", value=f"0", inline=False)
+            embed.add_field(name="Happy to take HQ: ", value=f"No-one happy to take HQ", inline=False)
+            embed.add_field(name="Count: ", value=f"0", inline=False)
+
+            msg = await leadershipChannel.send(embed=embed)
+
+            await msg.add_reaction("🧑‍🏫")
+            await msg.add_reaction("🤝")
+            await msg.add_reaction("<:3e:1205672874166325281>")
+            varStore.trainingMsgId = msg.id
             
     # Auto roll call
         elif current_time == "20:20" and datetime.today().weekday() in eventDays:
