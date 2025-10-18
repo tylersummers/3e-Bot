@@ -18,7 +18,10 @@ class backgroundTasks(commands.Cog):
     async def statusRotation(self):
         statuses = ["_help", 
                     "Xander's cannon wipes", 
-                    "Jungle bear the flag", 
+                    "Jungle bear the flag",
+                    "Danx headshot"
+                    "Shady lead"
+                    "Jackson TK"
                     "your teamkills", 
                     "your aim", 
                     "you spin",
@@ -28,7 +31,6 @@ class backgroundTasks(commands.Cog):
                     "the Support Staff", 
                     "the Infanterie", 
                     "the Cavalerie", 
-                    "Les cent Suisse",
                     "the Donations come in",
                     "Liberte News"]
         
