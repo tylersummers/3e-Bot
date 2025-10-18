@@ -553,6 +553,242 @@ class enlistedCog(commands.Cog):
         await medalsChannel.send(embed=challengeawardsEmbed)
         await medalsChannel.send(embed=medalapplicationEmbed)
         await medalsChannel.send('*All submissions require the following format (please do not ping medals):*\n```**Medal Requested:**\n**Date/Event of Achievement:**\n**Witnesses (if applicable):**\n**Evidence:**\n@Officer Corps```')
+
+    #Post Honours
+    @commands.has_any_role(
+        772921452135055360, 772921453095944203
+    )
+    @commands.guild_only()
+    @commands.cooldown(1, 10, commands.BucketType.guild)
+    @commands.command(aliases=["Honours"])
+    async def honours(self, ctx):
+        honoursChannelId = 1427838366488989727
+
+        async with ctx.channel.typing():
+            if ctx.channel.id == honoursChannelId:
+                async for message in ctx.channel.history(limit = 100):
+                    if message is None:
+                        break
+                    elif message.author.bot:
+                        await message.delete()
+
+            medalsChannel = self.bot.get_channel(honoursChannelId)
+            await medalsChannel.send(file=discord.File('/home/container/files/honours.png'))
+            
+            jacksoncrossEmbed=discord.Embed(description="Awarded to members who have successfully received all medals, or otherwise issued for extremely special displays of abilities. This medal is named after a previous leader of the regiment.\n<@&772935853076643840>", color=0x644d43)
+            jacksoncrossEmbed.set_author(name="Jackson Cross", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            jacksoncrossList = [
+                "(ex) 3e | Sgt. Quasar",
+                "(ex) 3e | Cpl. Niggy",
+                "(ex) 3e | CdB. Iceman",
+                "(ex) 3e | Cpt. ScareWest",
+                "3e | VGrd. Sinned",
+                "3e | Ocdt. Fairus"
+            ]
+            jacksoncrossListString = "\n".join(jacksoncrossList)
+            jacksoncrossListEmbed = discord.Embed(color=0xf2e442)
+            jacksoncrossListEmbed.add_field(name="Recipients", value=jacksoncrossListString, inline=False)
+
+            darkflameHeart=discord.Embed(description="Awarded to members who have been highly regarded for their exemplary dedication and cherished contributions to the 3e community.\n<@&1428984330822221923>", color=0x644d43)
+            darkflameHeart.set_author(name="Darkflame Heart", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+
+            clutchEmbed=discord.Embed(description="Awarded to a member who, as the last surviving player wins the round fighting 3 or more enemies.\n<@&772935250522800129>", color=0x644d43)
+            clutchEmbed.set_author(name="Creepy Clutch", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            clutchList = [
+                "3e | Adj. Creepy",
+                "3e | Adj. RAT_DOG",
+                "(ex.) 3e | Capt. Plot",
+                "3e | Capt. TANKIGAMER",
+                "3e | VGrd. Sinned",
+                "3e | Sgt. Dragz",
+                "3e | Pte-Aigle. JungleHeart",
+                "(ex) 3e | Sgt. Ryland"
+            ]
+            clutchListString = "\n".join(clutchList)
+            clutchListEmbed = discord.Embed(color=0xf2e442)
+            clutchListEmbed.add_field(name="Recipients", value=clutchListString, inline=False)
+
+            fourdchessEmbed=discord.Embed(description="While being the last one alive, get 3 or more enemies to team kill each other.\n<@&772935536293576734>", color=0x644d43)
+            fourdchessEmbed.set_author(name="Taragorne Touchdown", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            fourdchessList = [
+                "3e | Capt. TANKIGAMER",
+                "3e | VGrd. Sinned",
+                "3e | Lt. Danx",
+                "3e | Pte-Aigle. JungleHeart",
+                "(ex) 3e | Gren. Yuukari"
+            ]
+            fourdchessListString = "\n".join(fourdchessList)
+            fourdchessListEmbed = discord.Embed(color=0xf2e442)
+            fourdchessListEmbed.add_field(name="Recipients", value=fourdchessListString, inline=False)
+
+            hardcoreenlistedEmbed=discord.Embed(description="Finish all 5 rounds of an event in 1st place on the scoreboard.\n<@&1241680967157157938>", color=0x644d43)
+            hardcoreenlistedEmbed.set_author(name="Hardcore 3e", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+
+            pourlemeriteEmbed=discord.Embed(description="Obtain 8 or more kills in a single line battle round.\n<@&772928362280517653>", color=0x644d43)
+            pourlemeriteEmbed.set_author(name="Pour le Merite", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            pourlemeriteList = [
+                "3e | Adj. Creedo",
+                "(ex) 3e | Sgt. Quasar",
+                "(ex) 3e | Capt. Plot",
+                "3e | Capt. TANKIGAMER",
+                "3e | VGrd. Sinned",
+                "3e | Adj. RAT_DOG",
+                "3e | GdP. ItzTank", 
+                "3e | Adj. CaptainThunder",
+                "3e | Lt. Danx",
+                "3e | GdP. Cube",
+                "3e | Sgt. Dragz",
+                "3e | Tlr. Tim",
+                "3e | Chef. Meateor",
+                "3e | ArtG. Quacks",
+                "(ex) 3e | Capt. Dropbear",
+                "3e | Adj. BalisongBlue",
+                "3e | Ocdt. Fairus",
+                "3e | CpF. Kruber",
+                "3e | Adj. Douglas Mawson",
+                "3e | Maj. Shady",
+                "3e | Pte-aigle. JungleHeart",
+                "3e | Chas. Jeby",
+                "3e | Ocdt. Xander",
+                "3e | VGrd. Leaf",
+                "3e | Sous-Lt. AsianSharpe",
+                "3e | Adj. Lexi",
+                "3e | VGrd. Lachlan",
+                "3e | GdP. Jacjacheed",
+                "(ex) 3e | CpF. Ryno",
+                "3e | Gren. Spikes",
+                "(ex) 3e | Cpl. Slothboi44",
+                "(ex) 3e | Gren. Ghost",
+                "(ex) 3e | Gren. Yuukari",
+                "(ex) 3e | Sdt. Prince",
+                "3e | Gren. Crazyshadowfax"
+            ]
+            pourlemeriteListString = "\n".join(pourlemeriteList)
+            pourlemeriteListEmbed = discord.Embed(color=0xf2e442)
+            pourlemeriteListEmbed.add_field(name="Recipients", value=pourlemeriteListString, inline=False)
+
+            # Service Crosses, when someone reaches a higher level of service cross, remove them from the lower one they earned previously. Add them to the bottom of the new list. Sort by date recruited desc. when you batch add people to a new rank.
+            servicecross400Embed=discord.Embed(description="Awarded to members who have attended at least 400 line battles.\n<@&1299989565280485376>", color=0x644d43)
+            servicecross400Embed.set_author(name="Service Cross 400", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            servicecross400List = [
+                "3e | VGrd. Sinned",
+                "3e | Lt. Danx",
+                "3e | Ocdt. Fairus"
+            ]
+            servicecross400ListString = "\n".join(servicecross400List)
+            servicecross400ListEmbed = discord.Embed(color=0xf2e442)
+            servicecross400ListEmbed.add_field(name="Recipients", value=servicecross400ListString, inline=False)
+
+            servicecross300Embed=discord.Embed(description="Awarded to members who have attended at least 300 line battles.\n<@&1299988796410036266>", color=0x644d43)
+            servicecross300Embed.set_author(name="Service Cross 300", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            servicecross300List = [
+                "3e | Capt. TANKIGAMER",
+                "3e | Maj. Shady",
+                "3e | Pte-aigle. JungleHeart"
+            ]
+            servicecross300ListString = "\n".join(servicecross300List)
+            servicecross300ListEmbed = discord.Embed(color=0xf2e442)
+            servicecross300ListEmbed.add_field(name="Recipients", value=servicecross300ListString, inline=False)
+
+            servicecross200Embed=discord.Embed(description="Awarded to members who have attended at least 200 line battles.\n<@&1299988766831935508>", color=0x644d43)
+            servicecross200Embed.set_author(name="Service Cross 200", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            servicecross200List = [
+                "3e | Trlr. Billy",
+                "3e | Adj. RAT_DOG",
+                "3e | GdP. Cube",
+                "3e | Trlr. Tim",
+                "3e | CpF. Kruber",
+                "3e | Chas. Jeby",
+                "3e | VGrd. Leaf"
+            ]
+            servicecross200ListString = "\n".join(servicecross200List)
+            servicecross200ListEmbed = discord.Embed(color=0xf2e442)
+            servicecross200ListEmbed.add_field(name="Recipients", value=servicecross200ListString, inline=False)
+
+            servicecrossEmbed=discord.Embed(description="Awarded to members who have attended at least 75 line battles.\n<@&1003642674873651260>", color=0x644d43)
+            servicecrossEmbed.set_author(name="Service Cross", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            servicecrossList = [
+                "(ex) 3e | Cpt. ScareWest",
+                "3e | Sgt. Mugi",
+                "3e | GdP. ItzTank",
+                "3e | GdP. Mr. MLG",
+                "3e | Adj. CaptainThunder",
+                "3e | GdP. Cobby",
+                "3e | GdP. EamonRamon",
+                "3e | Volt. Adelin",
+                "3e | Chef. Meateor",
+                "3e | ArtG. Quacks",
+                "(ex) 3e | Capt. Dropbear",
+                "3e | Adj. BalisongBlue",
+                "3e | Adj. Douglas Mawson",
+                "3e | Cvlr. Windfire&Cum",
+                "3e | GdP. Commonly",
+                "3e | GdP. Jaiko",
+                "3e | Ocdt. Xander",
+                "3e | GdP. LetMeSolo",
+                "3e | Sous-Lt. AsianSharpe",
+                "3e | GdP. InflatedSteak",
+                "3e | GdP. Cloud Jumper",
+                "3e | Cpl. HelixOrion",
+                "3e | Trlr. ZigZag",
+                "3e | Adj. Lexi",
+                "3e | Sgt. Spyro",
+                "3e | Gdp. General",
+                "3e | VGrd. Lachlan",
+                "3e | GdP. Jacjacheed",
+                "3e | CpF. Ganthador",
+                "(ex) 3e | CpF. Ryno",
+                "(ex) 3e | Sous-Ofc. Kohan"
+            ]
+            servicecrossListString = "\n".join(servicecrossList)
+            servicecrossListEmbed = discord.Embed(color=0xf2e442)
+            servicecrossListEmbed.add_field(name="Recipients", value=servicecrossListString, inline=False)
+
+            infantryLongshotEmbed=discord.Embed(description="Longshot Champions.", color=0x644d43)
+            infantryLongshotEmbed.set_author(name="Eagle's Eye", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            infantryLongshotList = [
+                "🥇 - 3e | Lt. Danx - 1970-01-01 - 690m",
+                "🥈 - 3e | Maj. Shady - 1970-01-01 - 69m",
+                "🥉 - 3e | Maj. Shady - 1970-01-01 - 69m",
+            ]
+            infantryLongshotListString = "\n".join(infantryLongshotList)
+            infantryLongshotListEmbed = discord.Embed(color=0xf2e442)
+            infantryLongshotListEmbed.add_field(name="Recipients", value=infantryLongshotListString, inline=False)
+
+            ratdogsResistanceEmbed=discord.Embed(description="Killstreak Champions.", color=0x644d43)
+            ratdogsResistanceEmbed.set_author(name="Rat Dog's Resistance", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            ratdogsResistanceList = [
+                "🥇 - 3e | Lt. Danx - 1970-01-01 - 69 kills",
+                "🥈 - 3e | Maj. Shady - 1970-01-01 - 2 kills",
+                "🥉 - 3e | Maj. Shady - 1970-01-01 - 2 kills",
+            ]
+            ratdogsResistanceListString = "\n".join(ratdogsResistanceList)
+            ratdogsResistanceListEmbed = discord.Embed(color=0xf2e442)
+            ratdogsResistanceListEmbed.add_field(name="Recipients", value=ratdogsResistanceListString, inline=False)
+            
+            await medalsChannel.send(embed=jacksoncrossEmbed)
+            await medalsChannel.send(embed=jacksoncrossListEmbed)
+            await medalsChannel.send(embed=darkflameHeart)
+            await medalsChannel.send(embed=clutchEmbed)
+            await medalsChannel.send(embed=clutchListEmbed)
+            await medalsChannel.send(embed=fourdchessEmbed)
+            await medalsChannel.send(embed=fourdchessListEmbed)
+            await medalsChannel.send(embed=hardcoreenlistedEmbed)
+            await medalsChannel.send(embed=pourlemeriteEmbed)
+            await medalsChannel.send(embed=pourlemeriteListEmbed)
+            await medalsChannel.send(embed=servicecross400Embed)
+            await medalsChannel.send(embed=servicecross400ListEmbed)
+            await medalsChannel.send(embed=servicecross300Embed)
+            await medalsChannel.send(embed=servicecross300ListEmbed)
+            await medalsChannel.send(embed=servicecross200Embed)
+            await medalsChannel.send(embed=servicecross200ListEmbed)
+            await medalsChannel.send(embed=servicecrossEmbed)
+            await medalsChannel.send(embed=servicecrossListEmbed)
+            await medalsChannel.send(embed=infantryLongshotEmbed)
+            await medalsChannel.send(embed=infantryLongshotListEmbed)
+            await medalsChannel.send(embed=ratdogsResistanceEmbed)
+            await medalsChannel.send(embed=ratdogsResistanceListEmbed)
+
     #Muster roll
     @commands.has_any_role(
         772921452135055360, 772921453095944203, 772921882072449075, 772921877953904661
