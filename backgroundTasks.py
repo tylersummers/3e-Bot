@@ -17,21 +17,21 @@ class backgroundTasks(commands.Cog):
     @tasks.loop(seconds=60.0)
     async def statusRotation(self):
         statuses = ["_help", 
-                    "Xander's cannon wipes", 
-                    "Jungle bear the flag",
-                    "Danx headshot"
-                    "Shady lead"
-                    "Jackson TK"
-                    "your teamkills", 
-                    "your aim", 
-                    "you spin",
-                    "the Legere", 
-                    "the Garde",  
-                    "the Artillerie", 
-                    "the Support Staff", 
-                    "the Infanterie", 
-                    "the Cavalerie", 
-                    "the Donations come in",
+                    "watching Xander's cannon wipes", 
+                    "watching Jungle bear the flag",
+                    "watching Danx headshot",
+                    "watching Shady lead",
+                    "watching Jacksons stream",
+                    "watching your teamkills", 
+                    "watching your aim", 
+                    "watching you spin",
+                    "watching the Legere", 
+                    "watching the Garde",  
+                    "watching the Artillerie", 
+                    "watching the Auxiliary Staff", 
+                    "watching the Infanterie", 
+                    "watching the Cavalerie", 
+                    "watching the Donations come in",
                     "Liberte News"]
         
         # Initialize current_time
