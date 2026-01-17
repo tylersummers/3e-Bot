@@ -133,7 +133,7 @@ class backgroundTasks(commands.Cog):
             embed.add_field(name="Cavalry (Total: {})".format(len(cavUsers)), value=", ".join(cavUsers), inline=False)
             embed.add_field(name="Guards (Total: {})".format(len(guardUsers)), value=", ".join(guardUsers), inline=False)
             embed.add_field(name="Skirmishers (Total: {})".format(len(skirmUsers)), value=", ".join(skirmUsers), inline=False)
-            embed.add_field(name="Line & Support Staff (Total: {})".format(len(otherUsers)), value=", ".join(otherUsers), inline=False)
+            embed.add_field(name="Line & Auxiliary Staff (Total: {})".format(len(otherUsers)), value=", ".join(otherUsers), inline=False)
             embed.add_field(name="Mercenaries (Total: {})".format(len(mercUsers)), value=", ".join(mercUsers), inline=False)
             await logbookChannel.send(embed=embed)
 
@@ -183,7 +183,7 @@ class backgroundTasks(commands.Cog):
             embed.add_field(name="Cavalry (Total: {})".format(len(cavUsers)), value=", ".join(cavUsers), inline=False)
             embed.add_field(name="Guards (Total: {})".format(len(guardUsers)), value=", ".join(guardUsers), inline=False)
             embed.add_field(name="Skirmishers (Total: {})".format(len(skirmUsers)), value=", ".join(skirmUsers), inline=False)
-            embed.add_field(name="Line & Support Staff (Total: {})".format(len(otherUsers)), value=", ".join(otherUsers), inline=False)
+            embed.add_field(name="Line & Auxiliary Staff (Total: {})".format(len(otherUsers)), value=", ".join(otherUsers), inline=False)
             embed.add_field(name="Mercenaries (Total: {})".format(len(mercUsers)), value=", ".join(mercUsers), inline=False)
             await logbookChannel.send(embed=embed)
             
