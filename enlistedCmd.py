@@ -146,7 +146,7 @@ class enlistedCog(commands.Cog):
 
     #Post rules
     @commands.has_any_role(
-        772921452135055360
+        772921452135055360, 772921453095944203
     )
     @commands.guild_only()
     @commands.cooldown(1, 10, commands.BucketType.guild)
