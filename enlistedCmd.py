@@ -196,7 +196,7 @@ class enlistedCog(commands.Cog):
     async def enlistmentoffice(self, ctx):
         enlistmentChannel = self.bot.get_channel(801687726356824075)
         await enlistmentChannel.send(file=discord.File('/home/container/files/enlistment.png'))
-        await enlistmentChannel.send('**Copy/Paste the following format below, answering each question to enlist in the 3e:**\n```**What is your in-game name?**\n**Have you read and do you agree to follow our Regiment Rules?**\n**Are you aged 13 years or older?**\n**Are you currently in a different Holdfast regiment? If so, which one?**\n**How did you find the 3e?**\n**What region are you from?**\n**What platform are you on (PC / Xbox / Playstation)?**\n@Officer Corps```\n**Need help?** Just <@&772921877953904661> in this channel and you will be assisted.')
+        await enlistmentChannel.send('**Copy/Paste the following format below, answering each question to enlist in the 3e:**\n```**What is your in-game name?**\n**Have you read and do you agree to follow our Regiment Rules?**\n**Are you aged 16 years or older (if not you can still enlist)?**\n**Are you currently in a different Holdfast regiment? If so, which one?**\n**How did you find the 3e?**\n**What region are you from?**\n**What platform are you on (PC / Xbox / Playstation)?**\n@Officer Corps```\n**Need help?** Just <@&772921877953904661> in this channel and you will be assisted.')
 
      #Post suggestion box
     @commands.has_any_role(
@@ -225,9 +225,6 @@ class enlistedCog(commands.Cog):
         infmedalsEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/847486338685206528/950004623207465001/unknown.png")
 
         # Infanterie Medals ----------------------------------------------------
-        pourlemeriteEmbed=discord.Embed(description="Obtain 8 or more kills in a single line battle round.\n<@&772928362280517653>", color=0xfd8282)
-        pourlemeriteEmbed.set_author(name="Pour le Merite", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
         dieliketherestEmbed=discord.Embed(description="Kill any enemy officer.\n<@&772929237136965653>", color=0xfd8282)
         dieliketherestEmbed.set_author(name="Die Like the Rest", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
@@ -264,9 +261,6 @@ class enlistedCog(commands.Cog):
         knucklesEmbed=discord.Embed(description="Punch the last player to death.\n<@&1003643053979992064>", color=0xfd8282)
         knucklesEmbed.set_author(name="Knuckles", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
         
-        hardcoreenlistedEmbed=discord.Embed(description="Finish all 5 rounds of an event in 1st place on the scoreboard.\n<@&1241680967157157938>", color=0xfd8282)
-        hardcoreenlistedEmbed.set_author(name="Hardcore Enlisted", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
         # Garde Medals Title ------------------------------------------------------------------------------------------------------
         gardemedalsEmbed=discord.Embed(title="Garde Medals", description="", color=0x810505)
         gardemedalsEmbed.set_thumbnail(url="https://media.discordapp.net/attachments/960873839036887061/1148913727953961040/image.png")
@@ -348,6 +342,9 @@ class enlistedCog(commands.Cog):
 
         myvirginsifyoupleaseEmbed=discord.Embed(description="As a sapper, kill 2 or more enemies with a shovel.\n<@&772933962255433728>", color=0x7879e5)
         myvirginsifyoupleaseEmbed.set_author(name="My Virgins, If you Please", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+        
+        rocketmanEmbed=discord.Embed(description="Achieve 5+ kills in one round using rockets.\n<@&1388038131093082242>", color=0x9a82b0)
+        rocketmanEmbed.set_author(name="Rocket Man", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         # Aux Medals Title ------------------------------------------------------------------------------------------------------
         supportmedalsEmbed=discord.Embed(title="Auxiliary Staff Medals", description="", color=0x620db1)
@@ -374,9 +371,6 @@ class enlistedCog(commands.Cog):
         onionEmbed=discord.Embed(description="As a Musician, get at least 300 points.\n<@&1182503557790969916>", color=0x9a82b0)
         onionEmbed.set_author(name="Chanson de l'Oignon", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
         
-        rocketmanEmbed=discord.Embed(description="Achieve 5+ kills in one round using rockets.\n<@&1388038131093082242>", color=0x9a82b0)
-        rocketmanEmbed.set_author(name="Rocket Man", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-        
         redcrossEmbed=discord.Embed(description="For those members who have achieved all of the Auxiliary Medals, or have been long-standing, formative members of the Auxiliary.\n<@&1387422882140917854>", color=0x9a82b0)
         redcrossEmbed.set_author(name="Red Cross", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
@@ -395,34 +389,6 @@ class enlistedCog(commands.Cog):
 
         againstalloddsEmbed=discord.Embed(description="As an Officer, stop a cavalry charge without losing any troops.\n<@&1003633857830076487>", color=0xa2cde6)
         againstalloddsEmbed.set_author(name="Against All Odds", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        # Bonus Medals Title ------------------------------------------------------------------------------------------------------
-        bonusmedalsEmbed=discord.Embed(title="Bonus Medals", description="", color=0x682105)
-        bonusmedalsEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/846669911812210698/1015920295376326667/unknown.png")
-        # Bonus Medals ------------------------------------------------------------------------------------------------------
-        recruitmentmedalEmbed=discord.Embed(description="Awarded to a member that recruits 5 players within a week.\n<@&772935148021743637>", color=0x644d43)
-        recruitmentmedalEmbed.set_author(name="Recruitment Medal", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        clutchEmbed=discord.Embed(description="Awarded to a member who, as the last surviving player wins the round fighting 3 or more enemies.\n<@&772935250522800129>", color=0x644d43)
-        clutchEmbed.set_author(name="Clutch Medal", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        fourdchessEmbed=discord.Embed(description="While being the last one alive, get 3 or more enemies to team kill each other.\n<@&772935536293576734>", color=0x644d43)
-        fourdchessEmbed.set_author(name="4D Chess", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        servicecrossEmbed=discord.Embed(description="Awarded to members who have attended at least 75 line battles.\n<@&1003642674873651260>", color=0x644d43)
-        servicecrossEmbed.set_author(name="Service Cross", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-        
-        servicecross200Embed=discord.Embed(description="Awarded to members who have attended at least 200 line battles.\n<@&1299988766831935508>", color=0x644d43)
-        servicecross200Embed.set_author(name="Service Cross 200", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-        
-        servicecross300Embed=discord.Embed(description="Awarded to members who have attended at least 300 line battles.\n<@&1299988796410036266>", color=0x644d43)
-        servicecross300Embed.set_author(name="Service Cross 300", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-        
-        servicecross400Embed=discord.Embed(description="Awarded to members who have attended at least 400 line battles.\n<@&1299989565280485376>", color=0x644d43)
-        servicecross400Embed.set_author(name="Service Cross 400", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        jacksoncrossEmbed=discord.Embed(description="Awarded to members who have successfully received all medals, or otherwise issued for extremely special displays of abilities. This medal is named after a previous leader of the regiment.\n<@&772935853076643840>", color=0x644d43)
-        jacksoncrossEmbed.set_author(name="Jackson Cross", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         # Ribbons ------------------------------------------------------------------------------------------------------
         ribbonsEmbed=discord.Embed(title="Ribbons", description="", color=0xf0ea14)
@@ -445,9 +411,12 @@ class enlistedCog(commands.Cog):
         scorerribbonsEmbed.add_field(name="Score 800 - 999 points in a Line Battle", value="<@&772936507245068308>", inline=False)
         scorerribbonsEmbed.add_field(name="Score 1000+ points in a Line Battle", value="<@&772936508272803850>", inline=False)
         scorerribbonsEmbed.add_field(name="Attainment of all Scorer Ribbons", value="<@&772936509313515550>", inline=False)
+        
+        recruitmentmedalEmbed=discord.Embed(description="Awarded to a member that recruits 5 players within a week.\n<@&772935148021743637>", color=0x644d43)
+        recruitmentmedalEmbed.set_author(name="Recruitment Medal", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         # Pub Awards --------------------------------------------------------------------------------------------------
-        pubawardsEmbed=discord.Embed(title="Pub Awards", description="The following awards can only be achieved on Official Holdfast Public Servers.", color=0x9f03a4)
+        pubawardsEmbed=discord.Embed(title="Pub Awards", description="The following awards can only be achieved on Official Holdfast Public Servers. These awards are given on command and not read out during ceremonies.", color=0x9f03a4)
         pubawardsEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/846669911812210698/1015935782873202698/unknown.png")
 
         xpawardsEmbed=discord.Embed(title="XP Awards", description="In a single round, achieve...", color=0xa388a4)
@@ -480,7 +449,6 @@ class enlistedCog(commands.Cog):
         medalapplicationEmbed.set_thumbnail(url="https://emojipedia-us.s3.amazonaws.com/source/microsoft-teams/337/clipboard_1f4cb.png")
 
         await medalsChannel.send(embed=infmedalsEmbed)
-        await medalsChannel.send(embed=pourlemeriteEmbed)
         await medalsChannel.send(embed=dieliketherestEmbed)
         await medalsChannel.send(embed=tisbutascratchEmbed)
         await medalsChannel.send(embed=supremacymedalEmbed)
@@ -490,10 +458,8 @@ class enlistedCog(commands.Cog):
         await medalsChannel.send(embed=firstbloodEmbed)
         await medalsChannel.send(embed=whymeEmbed)
         await medalsChannel.send(embed=ruthlessEmbed)
-        await medalsChannel.send(embed=builtdifferentEmbed)
         await medalsChannel.send(embed=specsaversEmbed)
         await medalsChannel.send(embed=knucklesEmbed)
-        await medalsChannel.send(embed=hardcoreenlistedEmbed)
         await medalsChannel.send(embed=gardemedalsEmbed)
         await medalsChannel.send(embed=sabreEmbed)
         await medalsChannel.send(embed=gardeimperialeEmbed)
@@ -520,6 +486,7 @@ class enlistedCog(commands.Cog):
         await medalsChannel.send(embed=siryourpackageEmbed)
         await medalsChannel.send(embed=finderskeepersEmbed)
         await medalsChannel.send(embed=myvirginsifyoupleaseEmbed)
+        await medalsChannel.send(embed=rocketmanEmbed)
         await medalsChannel.send(embed=supportmedalsEmbed)
         await medalsChannel.send(embed=healinghandEmbed)
         await medalsChannel.send(embed=dyinghandEmbed)
@@ -528,25 +495,16 @@ class enlistedCog(commands.Cog):
         await medalsChannel.send(embed=onlyflagsEmbed)
         await medalsChannel.send(embed=dontstopbelievingEmbed)
         await medalsChannel.send(embed=onionEmbed)
-        await medalsChannel.send(embed=rocketmanEmbed)
         await medalsChannel.send(embed=redcrossEmbed)
         await medalsChannel.send(embed=officermedalsEmbed)
         await medalsChannel.send(embed=grandtacticianEmbed)
         await medalsChannel.send(embed=assaultdoctrineEmbed)
         await medalsChannel.send(embed=wehavemoremenEmbed)
         await medalsChannel.send(embed=againstalloddsEmbed)
-        await medalsChannel.send(embed=bonusmedalsEmbed)
-        await medalsChannel.send(embed=recruitmentmedalEmbed)
-        await medalsChannel.send(embed=clutchEmbed)
-        await medalsChannel.send(embed=fourdchessEmbed)
-        await medalsChannel.send(embed=servicecrossEmbed)
-        await medalsChannel.send(embed=servicecross200Embed)
-        await medalsChannel.send(embed=servicecross300Embed)
-        await medalsChannel.send(embed=servicecross400Embed)
-        await medalsChannel.send(embed=jacksoncrossEmbed)
         await medalsChannel.send(embed=ribbonsEmbed)
         await medalsChannel.send(embed=marksmanribbonsEmbed)
         await medalsChannel.send(embed=scorerribbonsEmbed)
+        await medalsChannel.send(embed=recruitmentmedalEmbed)
         await medalsChannel.send(embed=pubawardsEmbed)
         await medalsChannel.send(embed=xpawardsEmbed)
         await medalsChannel.send(embed=killawardsEmbed)
@@ -578,6 +536,7 @@ class enlistedCog(commands.Cog):
             jacksoncrossEmbed=discord.Embed(description="Awarded to members who have successfully received all medals, or otherwise issued for extremely special displays of abilities. This medal is named after a previous leader of the regiment.\n<@&772935853076643840>", color=0x644d43)
             jacksoncrossEmbed.set_author(name="Jackson Cross", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             jacksoncrossList = [
+                "(ex) 3e | CdB. Wessforde",
                 "(ex) 3e | Sgt. Quasar",
                 "(ex) 3e | Cpl. Niggy",
                 "(ex) 3e | CdB. Iceman",
@@ -591,16 +550,22 @@ class enlistedCog(commands.Cog):
 
             darkflameHeart=discord.Embed(description="Awarded to members who have been highly regarded for their exemplary dedication and cherished contributions to the 3e community.\n<@&1428984330822221923>", color=0x644d43)
             darkflameHeart.set_author(name="Darkflame Heart", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
-
+            darkflameHeartList = [
+            "3e | Pte-Aigle. JungleHeart",            
+            ]
+            darkflameHeartListString = "\n".join(darkflameHeartList)
+            darkflameHeartListEmbed = discord.Embed(color=0xf2e442)
+            darkflameHeartListEmbed.add_field(name="Recipients", value=darkflameHeartListString, inline=False)
+            
             clutchEmbed=discord.Embed(description="Awarded to a member who, as the last surviving player wins the round fighting 3 or more enemies.\n<@&772935250522800129>", color=0x644d43)
             clutchEmbed.set_author(name="Creepy Clutch", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             clutchList = [
-                "3e | Adj. Creepy",
+                "3e | Cpl. Creedo",
                 "3e | Adj. RAT_DOG",
                 "(ex.) 3e | Capt. Plot",
                 "3e | Capt. TANKIGAMER",
                 "3e | VGrd. Sinned",
-                "3e | Sgt. Dragz",
+                "3e | Sgt-Maj. Dragz",
                 "3e | Pte-Aigle. JungleHeart",
                 "(ex) 3e | Sgt. Ryland"
             ]
@@ -615,7 +580,8 @@ class enlistedCog(commands.Cog):
                 "3e | VGrd. Sinned",
                 "3e | Lt. Danx",
                 "3e | Pte-Aigle. JungleHeart",
-                "(ex) 3e | Gren. Yuukari"
+                "(ex) 3e | Gren. Yuukari",
+                "3e | VGrd. Kiwifruit"
             ]
             fourdchessListString = "\n".join(fourdchessList)
             fourdchessListEmbed = discord.Embed(color=0xf2e442)
@@ -627,7 +593,7 @@ class enlistedCog(commands.Cog):
             pourlemeriteEmbed=discord.Embed(description="Obtain 8 or more kills in a single line battle round.\n<@&772928362280517653>", color=0x644d43)
             pourlemeriteEmbed.set_author(name="Pour le Merite", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             pourlemeriteList = [
-                "3e | Adj. Creedo",
+                "3e | Cpl. Creedo",
                 "(ex) 3e | Sgt. Quasar",
                 "(ex) 3e | Capt. Plot",
                 "3e | Capt. TANKIGAMER",
@@ -637,7 +603,7 @@ class enlistedCog(commands.Cog):
                 "3e | Adj. CaptainThunder",
                 "3e | Lt. Danx",
                 "3e | GdP. Cube",
-                "3e | Sgt. Dragz",
+                "3e | Sgt-Maj. Dragz",
                 "3e | Tlr. Tim",
                 "3e | Chef. Meateor",
                 "3e | ArtG. Quacks",
@@ -652,7 +618,7 @@ class enlistedCog(commands.Cog):
                 "3e | Ocdt. Xander",
                 "3e | VGrd. Leaf",
                 "3e | Sous-Lt. AsianSharpe",
-                "3e | Adj. Lexi",
+                "3e | VGrd. Lexi",
                 "3e | VGrd. Lachlan",
                 "3e | GdP. Jacjacheed",
                 "(ex) 3e | CpF. Ryno",
@@ -661,7 +627,9 @@ class enlistedCog(commands.Cog):
                 "(ex) 3e | Gren. Ghost",
                 "(ex) 3e | Gren. Yuukari",
                 "(ex) 3e | Sdt. Prince",
-                "3e | Gren. Crazyshadowfax"
+                "3e | Gren. Crazyshadowfax",
+                "3e | VGrd. Kiwifruit",
+                "3e | Trlr. Zigzag"
             ]
             pourlemeriteListString = "\n".join(pourlemeriteList)
             pourlemeriteListEmbed = discord.Embed(color=0xf2e442)
@@ -673,7 +641,9 @@ class enlistedCog(commands.Cog):
             servicecross400List = [
                 "3e | VGrd. Sinned",
                 "3e | Lt. Danx",
-                "3e | Ocdt. Fairus"
+                "3e | Ocdt. Fairus",
+                "3e | Maj. Shady",
+                "3e | Sgt. Jackson"
             ]
             servicecross400ListString = "\n".join(servicecross400List)
             servicecross400ListEmbed = discord.Embed(color=0xf2e442)
@@ -683,8 +653,10 @@ class enlistedCog(commands.Cog):
             servicecross300Embed.set_author(name="Service Cross 300", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             servicecross300List = [
                 "3e | Capt. TANKIGAMER",
-                "3e | Maj. Shady",
-                "3e | Pte-aigle. JungleHeart"
+                "3e | Pte-aigle. JungleHeart",
+                "3e | Trlr. Billy",
+                "3e | CpF. Kruber",
+                "3e | CpF. Garat"
             ]
             servicecross300ListString = "\n".join(servicecross300List)
             servicecross300ListEmbed = discord.Embed(color=0xf2e442)
@@ -693,14 +665,19 @@ class enlistedCog(commands.Cog):
             servicecross200Embed=discord.Embed(description="Awarded to members who have attended at least 200 line battles.\n<@&1299988766831935508>", color=0x644d43)
             servicecross200Embed.set_author(name="Service Cross 200", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             servicecross200List = [
-                "3e | Trlr. Billy",
                 "3e | Adj. RAT_DOG",
                 "3e | GdP. Cube",
                 "3e | Trlr. Tim",
-                "3e | CpF. Kruber",
                 "3e | Chas. Jeby",
-                "3e | VGrd. Leaf"
-            ]
+                "3e | VGrd. Leaf",
+                "3e | Trlr. ZigZag",
+                "3e | Sgt. Ganthador",
+                "3e | Ocdt. Xander",
+                "3e | Sgt. Spyro",
+                "3e | VGrd. Lexi",
+                "3e | Sous-Lt. AsianSharpe",
+                "3e | Cpl. Douglas Mawson"
+            ]                
             servicecross200ListString = "\n".join(servicecross200List)
             servicecross200ListEmbed = discord.Embed(color=0xf2e442)
             servicecross200ListEmbed.add_field(name="Recipients", value=servicecross200ListString, inline=False)
@@ -709,7 +686,7 @@ class enlistedCog(commands.Cog):
             servicecrossEmbed.set_author(name="Service Cross", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             servicecrossList = [
                 "(ex) 3e | Cpt. ScareWest",
-                "3e | Sgt. Mugi",
+                "3e | Sgt-Maj. Mugi",
                 "3e | GdP. ItzTank",
                 "3e | GdP. Mr. MLG",
                 "3e | Adj. CaptainThunder",
@@ -724,21 +701,18 @@ class enlistedCog(commands.Cog):
                 "3e | Cvlr. Windfire&Cum",
                 "3e | GdP. Commonly",
                 "3e | GdP. Jaiko",
-                "3e | Ocdt. Xander",
                 "3e | GdP. LetMeSolo",
-                "3e | Sous-Lt. AsianSharpe",
                 "3e | GdP. InflatedSteak",
                 "3e | GdP. Cloud Jumper",
                 "3e | Cpl. HelixOrion",
-                "3e | Trlr. ZigZag",
-                "3e | Adj. Lexi",
-                "3e | Sgt. Spyro",
                 "3e | Gdp. General",
                 "3e | VGrd. Lachlan",
                 "3e | GdP. Jacjacheed",
-                "3e | CpF. Ganthador",
                 "(ex) 3e | CpF. Ryno",
-                "(ex) 3e | Sous-Ofc. Kohan"
+                "(ex) 3e | Sous-Ofc. Kohan",
+                "3e | Ins. Theatr1cal1ty",
+                "3e | Trlr. Viking",
+                "3e | Adj. Sparc"
             ]
             servicecrossListString = "\n".join(servicecrossList)
             servicecrossListEmbed = discord.Embed(color=0xf2e442)
@@ -747,9 +721,9 @@ class enlistedCog(commands.Cog):
             infantryLongshotEmbed=discord.Embed(description="Longshot Champions.", color=0x644d43)
             infantryLongshotEmbed.set_author(name="Eagle's Eye", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             infantryLongshotList = [
-                "🥇 - 3e | Lt. Danx - 1970-01-01 - 690m",
-                "🥈 - 3e | Maj. Shady - 1970-01-01 - 69m",
-                "🥉 - 3e | Maj. Shady - 1970-01-01 - 69m",
+                "🥇 - 3e | CpF. Garfunkel - 2025-10-10 - 358.2m",
+                "🥈 - 3e | GdP. Schnitzel - 2025-07-09 - 342.7m",
+                "🥉 - 3e | Cpl. 2big2bear13 - 2025-09-17 - 323.5m",
             ]
             infantryLongshotListString = "\n".join(infantryLongshotList)
             infantryLongshotListEmbed = discord.Embed(color=0xf2e442)
@@ -758,9 +732,10 @@ class enlistedCog(commands.Cog):
             ratdogsResistanceEmbed=discord.Embed(description="Killstreak Champions.", color=0x644d43)
             ratdogsResistanceEmbed.set_author(name="Rat Dog's Resistance", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             ratdogsResistanceList = [
-                "🥇 - 3e | Lt. Danx - 1970-01-01 - 69 kills",
-                "🥈 - 3e | Maj. Shady - 1970-01-01 - 2 kills",
-                "🥉 - 3e | Maj. Shady - 1970-01-01 - 2 kills",
+                "🥇 - 3e | Ocdt. Xander - 2025-07-25 - 20 kills",
+                "🥈 - 3e | VGrd. Kiwifruit - 2025-12-06 - 18 kills",
+                "🥈 - 3e | Lt. Danx - 2025-12-12 - 18 kills",
+                "🥉 - 3e | Pte-Aigle. JungleHeart - 2025-08-19 - 15 kills"
             ]
             ratdogsResistanceListString = "\n".join(ratdogsResistanceList)
             ratdogsResistanceListEmbed = discord.Embed(color=0xf2e442)
@@ -1265,7 +1240,7 @@ class enlistedCog(commands.Cog):
             coEmbed=discord.Embed(title="Commissioned Officers", description="", color=0x112074)
             coEmbed.set_thumbnail(url="attachment://commissionedofficer.png")
             coEmbed.add_field(name="Lieutenant Danx", value="Leader of the Legere", inline=False)
-            coEmbed.add_field(name="Sous-Lieutenant AsianSharpe", value="Leader of the Artillerie", inline=False)
+            coEmbed.add_field(name="Sous-Lieutenant AsianSharpe", value="Leader of the Artillerie, Minister of Diplomacy", inline=False)
 
             # Adjutant Council (Disabled) ----------------------------------------------------
             #adjEmbed=discord.Embed(title="Adjutant Council", description="", color=0x2b56c8)
@@ -1276,21 +1251,23 @@ class enlistedCog(commands.Cog):
             # Non-Commissioned Officers ----------------------------------------------------
             ncoEmbed=discord.Embed(title="Non-Commissioned Officers", description="", color=0x192fa7)
             ncoEmbed.set_thumbnail(url="attachment://nco.png")
-            ncoEmbed.add_field(name="Sergeant Dragz", value="Leader of the Garde", inline=False)                       
-            ncoEmbed.add_field(name="Sergeant Mugi", value="Legere Leader", inline=False)
-            ncoEmbed.add_field(name="Sergeant Sparc", value="Infanterie Leader", inline=False)
+            ncoEmbed.add_field(name="Sergeant-Major Dragz", value="Leader of the Garde", inline=False)                       
+            ncoEmbed.add_field(name="Sergeant-Major Mugi", value="Legere Leader, Minister of Security", inline=False)
             ncoEmbed.add_field(name="Sergeant Spyro", value="Infanterie Leader", inline=False)
+            ncoEmbed.add_field(name="Sergeant Ganthador", value="Artillerie Leader", inline=False)
+            ncoEmbed.add_field(name="Sergeant Jackson", value="Infanterie Leader, Twitch Streamer", inline=False)
 
             # Corporals ----------------------------------------------------
             cplEmbed=discord.Embed(title="Corporals", description="", color=0x1e39cd)
             cplEmbed.set_thumbnail(url="attachment://cpl.jpg")
             cplEmbed.add_field(name="Caporal-Fourrier Kruber", value="", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Ganthador", value="", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Garat", value="", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Jackson", value="", inline=False)
-            cplEmbed.add_field(name="Caporal HelixOrion", value="", inline=False)
-            cplEmbed.add_field(name="LOA Caporal Chips", value="", inline=False)
-            cplEmbed.add_field(name="Caporal 2big2bear13", value="", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier 2big2bear13", value="Minister of Training", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Garat", value="Minister of Culture", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Garfunkel", value="Minister of Melee", inline=False)
+            cplEmbed.add_field(name="Caporal HelixOrion", value="Minister of Shooting", inline=False)
+            cplEmbed.add_field(name="Caporal Douglas Mawson", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Creedo", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Fartic", value="", inline=False)
 
             # Officer Cadets ----------------------------------------------------
             ocdtEmbed=discord.Embed(title="Officer Cadets", description="", color=0x2444f3)
@@ -1299,8 +1276,8 @@ class enlistedCog(commands.Cog):
             ocdtEmbed.add_field(name="Officer Cadet GamingRabbit15", value="", inline=False)
             ocdtEmbed.add_field(name="Officer Cadet AussieOrange", value="", inline=False)
             ocdtEmbed.add_field(name="Officer Cadet Fairus", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet Garfunkel", value="", inline=False)
             ocdtEmbed.add_field(name="Officer Cadet Xander", value="", inline=False)
+            ocdtEmbed.add_field(name="Officer Cadet Ghostii", value="", inline=False)
 
             # Garde ---------------------------------------------------------------------
             guardEmbed = discord.Embed(
