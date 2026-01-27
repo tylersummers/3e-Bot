@@ -548,8 +548,8 @@ class enlistedCog(commands.Cog):
             jacksoncrossListEmbed = discord.Embed(color=0xf2e442)
             jacksoncrossListEmbed.add_field(name="Recipients", value=jacksoncrossListString, inline=False)
 
-            darkflameHeart=discord.Embed(description="Awarded to members who have been highly regarded for their exemplary dedication and cherished contributions to the 3e community.\n<@&1428984330822221923>", color=0x644d43)
-            darkflameHeart.set_author(name="Darkflame Heart", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
+            darkflameHeartEmbed=discord.Embed(description="Awarded to members who have been highly regarded for their exemplary dedication and cherished contributions to the 3e community.\n<@&1428984330822221923>", color=0x644d43)
+            darkflameHeartEmbed.set_author(name="Darkflame Heart", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             darkflameHeartList = [
             "3e | Pte-Aigle. JungleHeart",            
             ]
@@ -743,7 +743,8 @@ class enlistedCog(commands.Cog):
             
             await medalsChannel.send(embed=jacksoncrossEmbed)
             await medalsChannel.send(embed=jacksoncrossListEmbed)
-            await medalsChannel.send(embed=darkflameHeart)
+            await medalsChannel.send(embed=darkflameHeartEmbed)
+            await medalsChannel.send(embed=darkflameHeartListEmbed)
             await medalsChannel.send(embed=clutchEmbed)
             await medalsChannel.send(embed=clutchListEmbed)
             await medalsChannel.send(embed=fourdchessEmbed)
