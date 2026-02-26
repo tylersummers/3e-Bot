@@ -42,7 +42,7 @@ class attendanceCog(commands.Cog):
     @logbook.command(name="report", aliases=["Report"])
     async def attendance(self, ctx):
         try:
-            vcCatId = 772918008737038367
+            vcCatId = 1474947912638398639
             enlistedGuild = self.bot.get_guild(772917331235438654)
             vcChannelsIds = [channel.id for channel in enlistedGuild.voice_channels if channel.category_id == vcCatId]
 
