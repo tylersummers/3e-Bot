@@ -624,7 +624,7 @@ class enlistedCog(commands.Cog):
                 "(ex) 3e | CdB. Iceman",
                 "(ex) 3e | Cpt. ScareWest",
                 "3e | VGrd. Sinned",
-                "3e | Ocdt. Fairus"
+                "3e | Tbr-cpl. Fairus"
             ]
             jacksoncrossListString = "\n".join(jacksoncrossList)
             jacksoncrossListEmbed = discord.Embed(color=0xf2e442)
@@ -642,14 +642,15 @@ class enlistedCog(commands.Cog):
             clutchEmbed=discord.Embed(description="Awarded to a member who, as the last surviving player wins the round fighting 3 or more enemies.\n<@&772935250522800129>", color=0x644d43)
             clutchEmbed.set_author(name="Creepy Clutch", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             clutchList = [
-                "3e | Cpl. Creedo",
+                "(ex) 3e | Maj. Creedo",
                 "3e | Adj. RAT_DOG",
-                "(ex.) 3e | Capt. Plot",
+                "(ex) 3e | Capt. Plot",
                 "3e | Capt. TANKIGAMER",
                 "3e | VGrd. Sinned",
-                "3e | Sgt-Maj. Dragz",
+                "3e | Fch. Dragz",
                 "3e | Pte-Aigle. JungleHeart",
-                "(ex) 3e | Sgt. Ryland"
+                "(ex) 3e | Sgt. Ryland", 
+                "3e | Sgt. Garfunkel"
             ]
             clutchListString = "\n".join(clutchList)
             clutchListEmbed = discord.Embed(color=0xf2e442)
@@ -658,12 +659,14 @@ class enlistedCog(commands.Cog):
             fourdchessEmbed=discord.Embed(description="While being the last one alive, get 3 or more enemies to team kill each other.\n<@&772935536293576734>", color=0x644d43)
             fourdchessEmbed.set_author(name="Taragorne Touchdown", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             fourdchessList = [
-                "3e | Capt. TANKIGAMER",
+                "3e | Maj. TANKIGAMER",
                 "3e | VGrd. Sinned",
                 "3e | Lt. Danx",
                 "3e | Pte-Aigle. JungleHeart",
                 "(ex) 3e | Gren. Yuukari",
-                "3e | VGrd. Kiwifruit"
+                "3e | VGrd. Kiwifruit",
+                "3e | Sgt. Garfunkel",
+                "3e | VGrd. Ray"
             ]
             fourdchessListString = "\n".join(fourdchessList)
             fourdchessListEmbed = discord.Embed(color=0xf2e442)
@@ -675,43 +678,51 @@ class enlistedCog(commands.Cog):
             pourlemeriteEmbed=discord.Embed(description="Obtain 8 or more kills in a single line battle round.\n<@&772928362280517653>", color=0x644d43)
             pourlemeriteEmbed.set_author(name="Pour le Merite", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             pourlemeriteList = [
-                "3e | Cpl. Creedo",
+                "(ex) 3e | Maj. Creedo",
                 "(ex) 3e | Sgt. Quasar",
                 "(ex) 3e | Capt. Plot",
-                "3e | Capt. TANKIGAMER",
+                "3e | Maj. TANKIGAMER",
                 "3e | VGrd. Sinned",
                 "3e | Adj. RAT_DOG",
                 "3e | GdP. ItzTank", 
                 "3e | Adj. CaptainThunder",
                 "3e | Lt. Danx",
                 "3e | GdP. Cube",
-                "3e | Sgt-Maj. Dragz",
+                "3e | Fch. Dragz",
                 "3e | Tlr. Tim",
                 "3e | Chef. Meateor",
-                "3e | ArtG. Quacks",
+                "3e | GdP. Quacks",
                 "(ex) 3e | Capt. Dropbear",
                 "3e | Adj. BalisongBlue",
-                "3e | Ocdt. Fairus",
+                "3e | Tbr-cpl. Fairus",
                 "3e | CpF. Kruber",
-                "3e | Adj. Douglas Mawson",
-                "3e | Maj. Shady",
+                "3e | Sdt. Douglas Mawson",
+                "3e | Col. Shady",
                 "3e | Pte-aigle. JungleHeart",
                 "3e | Chas. Jeby",
-                "3e | Ocdt. Xander",
+                "3e | Cpl. Xander",
                 "3e | VGrd. Leaf",
                 "3e | Sous-Lt. AsianSharpe",
-                "3e | VGrd. Lexi",
+                "(ex) 3e | Sgt-Maj. Lexi",
                 "3e | VGrd. Lachlan",
-                "3e | GdP. Jacjacheed",
+                "(ex) 3e | Cpl. Jacjacheed",
                 "(ex) 3e | CpF. Ryno",
                 "3e | Gren. Spikes",
                 "(ex) 3e | Cpl. Slothboi44",
                 "(ex) 3e | Gren. Ghost",
                 "(ex) 3e | Gren. Yuukari",
                 "(ex) 3e | Sdt. Prince",
-                "3e | Gren. Crazyshadowfax",
+                "3e | GdP. Crazyshadowfax",
                 "3e | VGrd. Kiwifruit",
-                "3e | Trlr. Zigzag"
+                "3e | Trlr. Zigzag",
+                "3e | Sgt. Garfunkel",
+                "3e | Sous-Lt. Spyro",
+                "3e | VGrd. Santa",
+                "3e | VGrd. Ray",
+                "3e | Gren. Buckname",
+                "3e | CpF. Wogsauce", 
+                "3e | Cpl. Kage",
+                
             ]
             pourlemeriteListString = "\n".join(pourlemeriteList)
             pourlemeriteListEmbed = discord.Embed(color=0xf2e442)
@@ -723,9 +734,11 @@ class enlistedCog(commands.Cog):
             servicecross400List = [
                 "3e | VGrd. Sinned",
                 "3e | Lt. Danx",
-                "3e | Ocdt. Fairus",
-                "3e | Maj. Shady",
-                "3e | Sgt. Jackson"
+                "3e | Msc. Fairus",
+                "3e | Col. Shady",
+                "(ex) 3e | Maj. Jackson",
+                "3e | Maj. TANKIGAMER",
+                "3e | Pte-aigle. JungleHeart"
             ]
             servicecross400ListString = "\n".join(servicecross400List)
             servicecross400ListEmbed = discord.Embed(color=0xf2e442)
@@ -734,11 +747,14 @@ class enlistedCog(commands.Cog):
             servicecross300Embed=discord.Embed(description="Awarded to members who have attended at least 300 line battles.\n<@&1299988796410036266>", color=0x644d43)
             servicecross300Embed.set_author(name="Service Cross 300", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             servicecross300List = [
-                "3e | Capt. TANKIGAMER",
-                "3e | Pte-aigle. JungleHeart",
                 "3e | Trlr. Billy",
                 "3e | CpF. Kruber",
-                "3e | CpF. Garat"
+                "3e | Sgt-Maj. Taragorn",
+                "3e | VGrd. Leaf",
+                "3e | Chas. Jeby",
+                "3e | Sous-Lt. AsianSharpe",
+                "3e | Sous-Lt. Spyro",
+                "3e | Sgt-Maj. Ganthador"
             ]
             servicecross300ListString = "\n".join(servicecross300List)
             servicecross300ListEmbed = discord.Embed(color=0xf2e442)
@@ -750,15 +766,15 @@ class enlistedCog(commands.Cog):
                 "3e | Adj. RAT_DOG",
                 "3e | GdP. Cube",
                 "3e | Trlr. Tim",
-                "3e | Chas. Jeby",
-                "3e | VGrd. Leaf",
                 "3e | Trlr. ZigZag",
-                "3e | Sgt. Ganthador",
-                "3e | Ocdt. Xander",
-                "3e | Sgt. Spyro",
-                "3e | VGrd. Lexi",
-                "3e | Sous-Lt. AsianSharpe",
-                "3e | Cpl. Douglas Mawson"
+                "3e | Cpl. Xander",
+                "(ex) 3e | Sgt-Maj. Lexi",
+                "3e | Sdt. Douglas Mawson",
+                "3e | Fch. Mugi",
+                "3e | Cvlr. General",
+                "3e | GdP. Cloud Jumper",
+                "3e | Cpl. HelixOrion",
+                "3e | VGrd. Lachlan"
             ]                
             servicecross200ListString = "\n".join(servicecross200List)
             servicecross200ListEmbed = discord.Embed(color=0xf2e442)
@@ -768,7 +784,6 @@ class enlistedCog(commands.Cog):
             servicecrossEmbed.set_author(name="Service Cross", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             servicecrossList = [
                 "(ex) 3e | Cpt. ScareWest",
-                "3e | Sgt-Maj. Mugi",
                 "3e | GdP. ItzTank",
                 "3e | GdP. Mr. MLG",
                 "3e | Adj. CaptainThunder",
@@ -776,25 +791,44 @@ class enlistedCog(commands.Cog):
                 "3e | GdP. EamonRamon",
                 "3e | Volt. Adelin",
                 "3e | Chef. Meateor",
-                "3e | ArtG. Quacks",
+                "3e | GdP. Quacks",
                 "(ex) 3e | Capt. Dropbear",
                 "3e | Adj. BalisongBlue",
-                "3e | Adj. Douglas Mawson",
                 "3e | Cvlr. Windfire&Cum",
                 "3e | GdP. Commonly",
                 "3e | GdP. Jaiko",
                 "3e | GdP. LetMeSolo",
                 "3e | GdP. InflatedSteak",
-                "3e | GdP. Cloud Jumper",
-                "3e | Cpl. HelixOrion",
-                "3e | Gdp. General",
-                "3e | VGrd. Lachlan",
-                "3e | GdP. Jacjacheed",
+                "(ex) 3e | Chas. Jacjacheed",
                 "(ex) 3e | CpF. Ryno",
                 "(ex) 3e | Sous-Ofc. Kohan",
                 "3e | Ins. Theatr1cal1ty",
-                "3e | Trlr. Viking",
-                "3e | Adj. Sparc"
+                "3e | GdP. Viking",
+                "3e | Adj. Sparc", 
+                "3e | Cnr. Tumo",
+                "3e | Msc. Deadreaper",
+                "3e | CpF. Wogsauce", 
+                "3e | Sgt. 2big2bear13",
+                "3e | GdP. CrazyShadowfax",
+                "3e | Gren. Sir Unnameable",
+                "3e | Cvlr. Dogat",
+                "3e | Cpl. Rabbit",
+                "3e | Cnr. Ghostii",
+                "3e | MGrd. Pepperr",
+                "3e | VGrd. Ray",
+                "3e | GdP. Wulfric",
+                "3e | GdP. Napoleon 2.0",
+                "3e | GdP. PiratesBites",
+                "3e | Gren. Viv La Soviet",
+                "3e | GdP. Smore",
+                "3e | JGrd. Dylan",
+                "3e | Sgt. Garfunkel",
+                "3e | Fch. Dragz",
+                "3e | Cpl. Kage",
+                "3e | VGrd. Santa",
+                "3e | Cpl. Fartic",
+                "3e | CpF. Pin0",  
+                
             ]
             servicecrossListString = "\n".join(servicecrossList)
             servicecrossListEmbed = discord.Embed(color=0xf2e442)
@@ -803,9 +837,9 @@ class enlistedCog(commands.Cog):
             infantryLongshotEmbed=discord.Embed(description="Longshot Champions.", color=0x644d43)
             infantryLongshotEmbed.set_author(name="Eagle's Eye", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             infantryLongshotList = [
-                "🥇 - 3e | CpF. Garfunkel - 2025-10-10 - 358.2m",
-                "🥈 - 3e | GdP. Schnitzel - 2025-07-09 - 342.7m",
-                "🥉 - 3e | Cpl. 2big2bear13 - 2025-09-17 - 323.5m",
+                "🥇 - 3e | Sgt. Garfunkel - 2025-10-10 - 358.2m",
+                "🥈 - (ex) 3e | GdP. Schnitzel - 2025-07-09 - 342.7m",
+                "🥉 - 3e | Trlr. Zigzag - 2026-03-11 - 340.1m",
             ]
             infantryLongshotListString = "\n".join(infantryLongshotList)
             infantryLongshotListEmbed = discord.Embed(color=0xf2e442)
@@ -814,7 +848,7 @@ class enlistedCog(commands.Cog):
             ratdogsResistanceEmbed=discord.Embed(description="Killstreak Champions.", color=0x644d43)
             ratdogsResistanceEmbed.set_author(name="Rat Dog's Resistance", icon_url="https://images.emojiterra.com/twitter/512px/1f3c6.png")
             ratdogsResistanceList = [
-                "🥇 - 3e | Ocdt. Xander - 2025-07-25 - 20 kills",
+                "🥇 - 3e | Cpl. Xander - 2025-07-25 - 20 kills",
                 "🥈 - 3e | VGrd. Kiwifruit - 2025-12-06 - 18 kills",
                 "🥈 - 3e | Lt. Danx - 2025-12-12 - 18 kills",
                 "🥉 - 3e | Pte-Aigle. JungleHeart - 2025-08-19 - 15 kills"
@@ -939,6 +973,7 @@ class enlistedCog(commands.Cog):
 
             def ncoCalc(companyRole):
                 adjList = []
+                fchlist = []
                 sgtmajlist = []
                 sgtList = []
                 for user in ctx.guild.members:
@@ -946,7 +981,10 @@ class enlistedCog(commands.Cog):
                             if ncoRole in user.roles:
                                 if "Adj." in user.display_name:
                                     nick = (user.display_name).replace("Adj. ", "Adjutant ")
-                                    adjList.append(nick)
+                                    adjList.append(nick)                         
+                                elif "Fch. " in user.display_name:
+                                    nick = (user.display_name).replace("Fch. ", "Fanrich ")
+                                    fchlist.append(nick)    
                                 elif "Sgt-Maj. " in user.display_name:
                                     nick = (user.display_name).replace("Sgt-Maj. ", "Sergeant-Major ")
                                     sgtmajlist.append(nick)
@@ -954,10 +992,11 @@ class enlistedCog(commands.Cog):
                                     nick = (user.display_name).replace("Sgt. ", "Sergeant ")
                                     sgtList.append(nick)
                 adjList.sort()
+                fchlist.sort()
                 sgtmajlist.sort()
                 sgtList.sort()
 
-                ncoList = [adjList, sgtmajlist, sgtList]
+                ncoList = [adjList, fchlist, sgtmajlist, sgtList]
                 flatNcoList = [name for list in ncoList for name in list]
 
                 return flatNcoList
@@ -988,18 +1027,6 @@ class enlistedCog(commands.Cog):
 
                 return flatCplFullList
 
-            def ocdtCalc(companyRole):
-                ocdtList = []
-                for user in ctx.guild.members:
-                        if companyRole in user.roles:
-                            if ocdtRole in user.roles:
-                                if "Ocdt. " in user.display_name:
-                                    nick = (user.display_name).replace("Ocdt. ", "Officer Cadet ")
-                                    ocdtList.append(nick)
-                ocdtList.sort()
-
-                return ocdtList
-
             def enlistedCalc(companyRole):
                 insList = []
                 chgList = []
@@ -1009,12 +1036,13 @@ class enlistedCog(commands.Cog):
                 pteaigleList = []
                 chgmajList = []
                 chefList = []
-                gdrList = []
+                jgrdList = []
+                mgrdList = []
                 vgrdList = []
                 trlrList = []
                 voltList = []
                 cnrList = []
-                artgList = []
+                bmdList = []
                 cvlrList = []
                 chasList = []
                 gdpList = []
@@ -1063,9 +1091,12 @@ class enlistedCog(commands.Cog):
                         elif "Chef. " in user.display_name:
                             nick = (user.display_name).replace("Chef. ", "Chef ")
                             chgmajList.append(nick)
-                        elif "Gdr. " in user.display_name:
-                            nick = (user.display_name).replace("Gdr. ", "Gendarmerie ")
-                            gdrList.append(nick)
+                        elif "JGrd. " in user.display_name:
+                            nick = (user.display_name).replace("JGrd. ", "Jeune Garde ")
+                            jgrdList.append(nick)
+                        elif "MGrd. " in user.display_name:
+                            nick = (user.display_name).replace("MGrd. ", "Moyenne Garde ")
+                            mgrdList.append(nick)    
                         elif "VGrd. " in user.display_name:
                             nick = (user.display_name).replace("VGrd. ", "Vieille Garde ")
                             vgrdList.append(nick)
@@ -1078,9 +1109,9 @@ class enlistedCog(commands.Cog):
                         elif "Cnr. " in user.display_name:
                             nick = (user.display_name).replace("Cnr. ", "Canonnier ")
                             cnrList.append(nick)
-                        elif "ArtG. " in user.display_name:
-                            nick = (user.display_name).replace("ArtG. ", "Artillerie Gouttelettes ")
-                            artgList.append(nick)
+                        elif "Bmd. " in user.display_name:
+                            nick = (user.display_name).replace("Bmd. ", "Bombardier ")
+                            bmdList.append(nick)
                         elif "Cvlr. " in user.display_name:
                             nick = (user.display_name).replace("Cvlr. ", "Cavalier ")
                             cvlrList.append(nick)
@@ -1094,12 +1125,13 @@ class enlistedCog(commands.Cog):
                 pteaigleList.sort()
                 chefList.sort()
                 chgmajList.sort()
-                gdrList.sort()
+                jgrdList.sort()
+                mgrdList.sort()
                 vgrdList.sort()
                 trlrList.sort()
                 voltList.sort()
                 cnrList.sort()
-                artgList.sort()
+                bmdList.sort()
                 cvlrList.sort()
                 chasList.sort()
                 lcsList.sort()
@@ -1108,7 +1140,7 @@ class enlistedCog(commands.Cog):
                 fusList.sort()
                 sdtList.sort()
 
-                enlistedList = [lcsList, chgmajList, chgList, pteaigleList, insList, tbrcplList, mscList, vgrdList, gdrList, voltList, trlrList, artgList, cnrList, chasList, cvlrList, gdpList, grenList, fusList, sdtList]
+                enlistedList = [lcsList, chgmajList, chgList, pteaigleList, insList, tbrcplList, mscList, vgrdList, mgrdList, jgrdList, voltList, trlrList, bmdList, cnrList, chasList, cvlrList, gdpList, grenList, fusList, sdtList]
                 flatEnlistedList = [name for list in enlistedList for name in list]
 
                 return flatEnlistedList
@@ -1143,7 +1175,9 @@ class enlistedCog(commands.Cog):
                             enlistedCount += 1
                         elif "C-Maj. " in user.display_name:
                             enlistedCount += 1
-                        elif "Gdr. " in user.display_name:
+                        elif "JGrd. " in user.display_name:
+                            enlistedCount += 1
+                        elif "MGrd. " in user.display_name:
                             enlistedCount += 1
                         elif "VGrd. " in user.display_name:
                             enlistedCount += 1
@@ -1153,7 +1187,7 @@ class enlistedCog(commands.Cog):
                             enlistedCount += 1
                         elif "Cnr. " in user.display_name:
                             enlistedCount += 1
-                        elif "ArtG. " in user.display_name:
+                        elif "Bmd. " in user.display_name:
                             enlistedCount += 1
                         elif "Cvlr. " in user.display_name:
                             enlistedCount += 1
@@ -1179,7 +1213,6 @@ class enlistedCog(commands.Cog):
                     elif list == "Co": func = coCalc
                     elif list == "Nco": func = ncoCalc
                     elif list == "Cpl": func = cplCalc
-                    elif list == "Ocdt": func = ocdtCalc
                     elif list == "Enlisted": func = enlistedCalc
 
                     muster[f"{company}{list}"] = func(role)
@@ -1244,17 +1277,6 @@ class enlistedCog(commands.Cog):
                 cplImg = discord.File(
                     "/home/container/files/cpl.jpg", filename="cpl.jpg"
                 )
-
-            # Ocdt pic
-            try:
-                ocdtImg = discord.File(
-                    "files/ocdt.jpg",
-                    filename="ocdt.jpg",
-                )
-            except:
-                ocdtImg = discord.File(
-                    "/home/container/files/ocdt.jpg", filename="ocdt.jpg"
-                )
                 
             # Guards
             try:
@@ -1316,14 +1338,15 @@ class enlistedCog(commands.Cog):
             # Senior Officers ----------------------------------------------------
             soEmbed=discord.Embed(title="Senior Officers", description="", color=0x0d195a)
             soEmbed.set_thumbnail(url="attachment://seniorofficer.png")
-            soEmbed.add_field(name="Major Shady", value="1 IC of the 3e", inline=False)
-            soEmbed.add_field(name="Capitaine TANKIGAMER", value="2IC of the 3e, Leader of Cavalerie, Keeper of the Tale", inline=False)
+            soEmbed.add_field(name="Colonel Shady", value="1 IC of the 3e", inline=False)
+            soEmbed.add_field(name="Major TANKIGAMER", value="2IC of the 3e, Leader of Cavalerie, Keeper of the Tale", inline=False)
 
             # Commissioned Officers ----------------------------------------------------
             coEmbed=discord.Embed(title="Commissioned Officers", description="", color=0x112074)
             coEmbed.set_thumbnail(url="attachment://commissionedofficer.png")
             coEmbed.add_field(name="Lieutenant Danx", value="Leader of the Legere", inline=False)
             coEmbed.add_field(name="Sous-Lieutenant AsianSharpe", value="Leader of the Artillerie, Minister of Diplomacy", inline=False)
+            coEmbed.add_field(name="Sous-Lieutenant Spyro", value="Leader of the Infanterie, Minister of Security", inline=False)
 
             # Adjutant Council (Disabled) ----------------------------------------------------
             #adjEmbed=discord.Embed(title="Adjutant Council", description="", color=0x2b56c8)
@@ -1334,33 +1357,27 @@ class enlistedCog(commands.Cog):
             # Non-Commissioned Officers ----------------------------------------------------
             ncoEmbed=discord.Embed(title="Non-Commissioned Officers", description="", color=0x192fa7)
             ncoEmbed.set_thumbnail(url="attachment://nco.png")
-            ncoEmbed.add_field(name="Sergeant-Major Dragz", value="Leader of the Garde", inline=False)                       
-            ncoEmbed.add_field(name="Sergeant-Major Mugi", value="Legere Leader, Minister of Security", inline=False)
-            ncoEmbed.add_field(name="Sergeant Spyro", value="Infanterie Leader", inline=False)
-            ncoEmbed.add_field(name="Sergeant Ganthador", value="Artillerie Leader", inline=False)
-            ncoEmbed.add_field(name="Sergeant Jackson", value="Infanterie Leader, Twitch Streamer", inline=False)
+            ncoEmbed.add_field(name="Fahnrich Dragz", value="Leader of the Garde", inline=False)                       
+            ncoEmbed.add_field(name="Fahnrich Mugi", value="Legere Leader, Minister of Security", inline=False)
+            ncoEmbed.add_field(name="Sergeant-Major Ganthador", value="Artillerie Leader, Minister of Propaganda", inline=False)
+            ncoEmbed.add_field(name="Sergeant-Major Taragorn", value="Infanterie Leader, Minister of Culture", inline=False)
+            ncoEmbed.add_field(name="Sergeant Garfunkel", value="Garde Leader", inline=False)
+            ncoEmbed.add_field(name="Sergeant 2big2bear13", value="Cavalerie Leader", inline=False)
 
             # Corporals ----------------------------------------------------
             cplEmbed=discord.Embed(title="Corporals", description="", color=0x1e39cd)
             cplEmbed.set_thumbnail(url="attachment://cpl.jpg")
             cplEmbed.add_field(name="Caporal-Fourrier Kruber", value="", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier 2big2bear13", value="Minister of Training", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Garat", value="Minister of Culture", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Garfunkel", value="Minister of Melee", inline=False)
-            cplEmbed.add_field(name="Caporal HelixOrion", value="Minister of Shooting", inline=False)
-            cplEmbed.add_field(name="Caporal Douglas Mawson", value="", inline=False)
-            cplEmbed.add_field(name="Caporal Creedo", value="", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Wogsauce", value="", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Krizzle", value="", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Pin0", value="", inline=False)
+            cplEmbed.add_field(name="Caporal HelixOrion", value="", inline=False)
             cplEmbed.add_field(name="Caporal Fartic", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Kage", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Xander", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Gaming Rabbit", value="", inline=False)
+            cplEmbed.add_field(name="Caporal Socturnan", value="", inline=False)
 
-            # Officer Cadets ----------------------------------------------------
-            ocdtEmbed=discord.Embed(title="Officer Cadets", description="", color=0x2444f3)
-            ocdtEmbed.set_thumbnail(url="attachment://ocdt.jpg")
-            ocdtEmbed.add_field(name="Officer Cadet P4tr1ck", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet GamingRabbit15", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet AussieOrange", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet Fairus", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet Xander", value="", inline=False)
-            ocdtEmbed.add_field(name="Officer Cadet Ghostii", value="", inline=False)
 
             # Garde ---------------------------------------------------------------------
             guardEmbed = discord.Embed(
@@ -1405,16 +1422,6 @@ class enlistedCog(commands.Cog):
             if list and list.strip():
                 guardEmbed.add_field(
                     name=f"Corporals", value=f"\u200b{muster['guardCpl']}", inline=False
-                )
-                guardEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
-            list = muster.get('guardOcdt')
-            if list and list.strip():
-                guardEmbed.add_field(
-                    name=f"Officer Cadets", value=f"\u200b{muster['guardOcdt']}", inline=False
                 )
                 guardEmbed.add_field(
                     name=f"\u200b",
@@ -1476,16 +1483,6 @@ class enlistedCog(commands.Cog):
                     value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
                     inline=False,
                 )
-            list = muster.get('skirmOcdt')
-            if list and list.strip():
-                skirmEmbed.add_field(
-                    name=f"Officer Cadets", value=f"\u200b{muster['skirmOcdt']}", inline=False
-                )
-                skirmEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
             list = muster.get('skirmEnlisted')
             if list and list.strip():
                 skirmEmbed.add_field(
@@ -1535,16 +1532,6 @@ class enlistedCog(commands.Cog):
             if list and list.strip():
                 cavEmbed.add_field(
                     name=f"Corporals", value=f"\u200b{muster['cavCpl']}", inline=False
-                )
-                cavEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
-            list = muster.get('cavOcdt')
-            if list and list.strip():
-                cavEmbed.add_field(
-                    name=f"Officer Cadets", value=f"\u200b{muster['cavOcdt']}", inline=False
                 )
                 cavEmbed.add_field(
                     name=f"\u200b",
@@ -1604,16 +1591,6 @@ class enlistedCog(commands.Cog):
                     value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
                     inline=False,
                 )
-            list = muster.get('artyOcdt')
-            if list and list.strip():
-                artyEmbed.add_field(
-                    name=f"Officer Cadets", value=f"\u200b{muster['artyOcdt']}", inline=False
-                )
-                artyEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
             list = muster.get('artyEnlisted')
             if list and list.strip():
                 artyEmbed.add_field(
@@ -1638,7 +1615,6 @@ class enlistedCog(commands.Cog):
             #await ctx.send(file=adjImg, embed=adjEmbed)
             await ctx.send(file=ncoImg, embed=ncoEmbed)
             await ctx.send(file=cplImg, embed=cplEmbed)
-            await ctx.send(file=ocdtImg, embed=ocdtEmbed)
             await ctx.send(file=guardImg, embed=guardEmbed)
             await ctx.send(file=skirmImg, embed=skirmEmbed)
             await ctx.send(file=cavImg, embed=cavEmbed)
