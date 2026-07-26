@@ -218,7 +218,6 @@ class enlistedCog(commands.Cog):
     @commands.cooldown(1, 10, commands.BucketType.guild)
     @commands.command(aliases=["Medals"])
     async def medals(self, ctx):
-        medalsChannel = self.bot.get_channel(772921078095937567)
         # Enlisted Medals Title ----------------------------------------------------
         enlistmedalsEmbed=discord.Embed(title="Enlisted Medals", description="", color=0xff0000)
         enlistmedalsEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/847486338685206528/950004623207465001/unknown.png")
@@ -597,7 +596,6 @@ class enlistedCog(commands.Cog):
                     elif message.author.bot:
                         await message.delete()
 
-            medalsChannel = self.bot.get_channel(honoursChannelId)
             await ctx.send(file=discord.File('/home/container/files/honours.png'))
             
             jacksoncrossEmbed=discord.Embed(description="Awarded to members who have successfully received all medals, or otherwise issued for extremely special displays of abilities. This medal is named after a previous leader of the regiment.\n<@&772935853076643840>", color=0x644d43)
