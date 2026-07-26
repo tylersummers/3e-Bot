@@ -377,6 +377,9 @@ class enlistedCog(commands.Cog):
         sixtyninesbaneEmbed.set_author(name="69th's Bane", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
 
+n        someassemblyrequiredEmbed=discord.Embed(description="As a Sapper, finish the round top of the leaderboard with no kills.
+<@&TODO_ROLE_ID>", color=0x7879e5)
+        someassemblyrequiredEmbed.set_author(name="Some Assembly Required", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
         unrelentingbarrageEmbed=discord.Embed(description="Obtain 10 or more kills with any artillery piece(s) in a single line battle round.\n<@&772932588729270302>", color=0x7879e5)
         unrelentingbarrageEmbed.set_author(name="Unrelenting Barrage", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
