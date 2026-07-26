@@ -305,6 +305,22 @@ class enlistedCog(commands.Cog):
         elitemusketeerEmbed=discord.Embed(description="Obtain 5 kills via shooting in a single round.\n<@&1299985991422971904>", color=0xb20b0b)
         elitemusketeerEmbed.set_author(name="Elite Musketeer", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
+        # Garde Medals - New Achievements (Part 2) ----------------------------------------------------------------------------------
+        bronzeLionEmbed=discord.Embed(description="Achieve 3 melee kills AND 2 shooting kills in a single round\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        bronzeLionEmbed.set_author(name="Bronze Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        silverLionEmbed=discord.Embed(description="Achieve 6 melee kills AND 3 shooting kills in a single round\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        silverLionEmbed.set_author(name="Silver Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        goldLionEmbed=discord.Embed(description="Achieve 10 melee kills AND 4 shooting kills in a single round\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        goldLionEmbed.set_author(name="Gold Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        dragzHonorEmbed=discord.Embed(description="Achieve Gren IX (2.4 KPR) over the entire month\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        dragzHonorEmbed.set_author(name="Dragz Honor", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        loneWolfEmbed=discord.Embed(description="Continue a charge alone after your line is wiped, survive, and kill the enemy line you were attacking\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        loneWolfEmbed.set_author(name="The Lone Wolf", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
         # Skirm Medals Title ------------------------------------------------------------------------------------------------------
         skirmmedalsEmbed=discord.Embed(title="Legere Medals", description="", color=0xf2e442)
         skirmmedalsEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/846669911812210698/1015533371264344064/unknown.png")
