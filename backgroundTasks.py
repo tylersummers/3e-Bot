@@ -88,7 +88,7 @@ class backgroundTasks(commands.Cog):
             
     # Auto roll call
         elif current_time == "20:20" and datetime.today().weekday() in eventDays:
-            vcCatId = 772918008737038367
+            vcCatId = 1474947912638398639
             enlistedGuild = self.bot.get_guild(772917331235438654)
             vcChannelsIds = [channel.id for channel in enlistedGuild.voice_channels if channel.category_id == vcCatId]
             
@@ -138,7 +138,7 @@ class backgroundTasks(commands.Cog):
             await logbookChannel.send(embed=embed)
 
         elif current_time == "19:20" and datetime.today().weekday() in trainingDays:
-            vcCatId = 772918008737038367
+            vcCatId = 1474947912638398639
             enlistedGuild = self.bot.get_guild(772917331235438654)
             vcChannelsIds = [channel.id for channel in enlistedGuild.voice_channels if channel.category_id == vcCatId]
             

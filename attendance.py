@@ -42,7 +42,7 @@ class attendanceCog(commands.Cog):
     @logbook.command(name="report", aliases=["Report"])
     async def attendance(self, ctx):
         try:
-            vcCatId = 772918008737038367
+            vcCatId = 1474947912638398639
             enlistedGuild = self.bot.get_guild(772917331235438654)
             vcChannelsIds = [channel.id for channel in enlistedGuild.voice_channels if channel.category_id == vcCatId]
 
@@ -188,7 +188,7 @@ class attendanceCog(commands.Cog):
         try:
             start = datetime.now()
             msg = await ctx.send(f"Filling out the logbook for {attendance_type} attendance now...")
-            vc_cat_id = 772918008737038367
+            vc_cat_id = 1474947912638398639
             guild = self.bot.get_guild(772917331235438654)
 
             # Check for the roles that determine the worksheet

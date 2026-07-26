@@ -105,7 +105,7 @@ class enlistedCog(commands.Cog):
     async def forcecampfire(self, ctx):
         async with ctx.channel.typing():
             await ctx.reply("Moving users now")
-            vcCatId = 772918008737038367
+            vcCatId = 1474947912638398639
             campfireTunes = self.bot.get_channel(772920468515848213)
 
             for channel in ctx.guild.voice_channels:
