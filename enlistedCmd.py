@@ -376,7 +376,7 @@ class enlistedCog(commands.Cog):
         sixtyninesbaneEmbed=discord.Embed(description="Wipe out a 69th artillery piece.\n<@&TODO_ROLE_ID>", color=0x7879e5)
         sixtyninesbaneEmbed.set_author(name="69th's Bane", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        grandbombardierEmbed=discord.Embed(description="Eliminate 5 or more enemy players with a single cannon shot.\n<@&772932119877517362>", color=0x7879e5)
+
         unrelentingbarrageEmbed=discord.Embed(description="Obtain 10 or more kills with any artillery piece(s) in a single line battle round.\n<@&772932588729270302>", color=0x7879e5)
         unrelentingbarrageEmbed.set_author(name="Unrelenting Barrage", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
