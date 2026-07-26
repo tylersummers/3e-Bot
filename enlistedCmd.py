@@ -377,8 +377,6 @@ class enlistedCog(commands.Cog):
         sixtyninesbaneEmbed.set_author(name="69th's Bane", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         grandbombardierEmbed=discord.Embed(description="Eliminate 5 or more enemy players with a single cannon shot.\n<@&772932119877517362>", color=0x7879e5)
-        grandbombardierEmbed.set_author(name="Grand Bombardier", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
         someassemblyrequiredEmbed.set_author(name="Some Assembly Required", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         unrelentingbarrageEmbed=discord.Embed(description="Obtain 10 or more kills with any artillery piece(s) in a single line battle round.\n<@&772932588729270302>", color=0x7879e5)
