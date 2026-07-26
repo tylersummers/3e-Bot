@@ -303,13 +303,13 @@ class enlistedCog(commands.Cog):
         elitemusketeerEmbed.set_author(name="Elite Musketeer", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         # Garde Medals - New Achievements (Part 2) ----------------------------------------------------------------------------------
-        bronzeLionEmbed=discord.Embed(description="Achieve 3 melee kills AND 2 shooting kills in a single round\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        bronzeLionEmbed=discord.Embed(description="Achieve 3 melee kills and 2 shooting kills in a single round.\n<@&TODO_ROLE_ID>", color=0xb20b0b)
         bronzeLionEmbed.set_author(name="Bronze Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        silverLionEmbed=discord.Embed(description="Achieve 6 melee kills AND 3 shooting kills in a single round\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        silverLionEmbed=discord.Embed(description="Achieve 6 melee kills and 3 shooting kills in a single round.\n<@&TODO_ROLE_ID>", color=0xb20b0b)
         silverLionEmbed.set_author(name="Silver Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        goldLionEmbed=discord.Embed(description="Achieve 10 melee kills AND 4 shooting kills in a single round\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        goldLionEmbed=discord.Embed(description="Achieve 10 melee kills and 4 shooting kills in a single round.\n<@&TODO_ROLE_ID>", color=0xb20b0b)
         goldLionEmbed.set_author(name="Gold Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         dragzHonorEmbed=discord.Embed(description="Achieve Gren IX (2.4 KPR) over the entire month\n<@&TODO_ROLE_ID>", color=0xb20b0b)
