@@ -220,34 +220,12 @@ class enlistedCog(commands.Cog):
     async def medals(self, ctx):
         medalsChannel = self.bot.get_channel(772921078095937567)
         await medalsChannel.send(file=discord.File('/home/container/files/medals.png'))
-        # Infanterie Medals Title ----------------------------------------------------
-        infmedalsEmbed=discord.Embed(title="Infanterie Medals", description="", color=0xff0000)
-        infmedalsEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/847486338685206528/950004623207465001/unknown.png")
-
+  
         # Enlisted Medals Title ----------------------------------------------------
         enlistmedalsEmbed=discord.Embed(title="Enlisted Medals", description="", color=0xff0000)
         enlistmedalsEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/847486338685206528/950004623207465001/unknown.png")
 
-        # Enlisted Medals ----------------------------------------------------
-        orderofthelionEmbed=discord.Embed(description="Achieve the weekly challenge.\n<@&TODO_ROLE_ID>", color=0xfd8282)
-        orderofthelionEmbed.set_author(name="Order of the Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        grenadierexperimenteEmbed=discord.Embed(description="As a Grenadier, achieve 4 shooting kills in a single round.\n<@&TODO_ROLE_ID>", color=0xfd8282)
-        grenadierexperimenteEmbed.set_author(name="Grenadier expérimenté", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        fleurdelisEmbed=discord.Embed(description="Finish top 2 while playing infanterie class.\n<@&TODO_ROLE_ID>", color=0xfd8282)
-        fleurdelisEmbed.set_author(name="Fleur-de-lis", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        bombechanceuseEmbed=discord.Embed(description="As Grenadiers get two kills with one grenade.\n<@&TODO_ROLE_ID>", color=0xfd8282)
-        bombechanceuseEmbed.set_author(name="Bombe chanceuse", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        ticktickboomEmbed=discord.Embed(description="Blow up enemy arty or kill an enemy horse with your grenade.\n<@&TODO_ROLE_ID>", color=0xfd8282)
-        ticktickboomEmbed.set_author(name="Tick Tick Boom", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        holyhandgrenadesEmbed=discord.Embed(description="As a line successfully overrun and kill an enemy line after throwing Grenadiers.\n<@&TODO_ROLE_ID>", color=0xfd8282)
-        holyhandgrenadesEmbed.set_author(name="Holy Hand Grenades", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-
-        # Infanterie Medals ----------------------------------------------------
+        # Enlisted Medals ------------------------------------------------------------------------------------
         dieliketherestEmbed=discord.Embed(description="Kill any enemy officer.\n<@&772929237136965653>", color=0xfd8282)
         dieliketherestEmbed.set_author(name="Die Like the Rest", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
@@ -283,7 +261,31 @@ class enlistedCog(commands.Cog):
 
         knucklesEmbed=discord.Embed(description="Punch the last player to death.\n<@&1003643053979992064>", color=0xfd8282)
         knucklesEmbed.set_author(name="Knuckles", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
-        
+
+        # Infanterie Medals Title ----------------------------------------------------
+        infmedalsEmbed=discord.Embed(title="Infanterie Medals", description="", color=0xff0000)
+        infmedalsEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/847486338685206528/950004623207465001/unknown.png")
+
+        # Infanterie Medals ----------------------------------------------------
+        orderofthelionEmbed=discord.Embed(description="Achieve the weekly challenge.\n<@&TODO_ROLE_ID>", color=0xfd8282)
+        orderofthelionEmbed.set_author(name="Order of the Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        grenadierexperimenteEmbed=discord.Embed(description="As a Grenadier, achieve 4 shooting kills in a single round.\n<@&TODO_ROLE_ID>", color=0xfd8282)
+        grenadierexperimenteEmbed.set_author(name="Grenadier expérimenté", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        fleurdelisEmbed=discord.Embed(description="Finish top 2 while playing infanterie class.\n<@&TODO_ROLE_ID>", color=0xfd8282)
+        fleurdelisEmbed.set_author(name="Fleur-de-lis", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        bombechanceuseEmbed=discord.Embed(description="As Grenadiers get two kills with one grenade.\n<@&TODO_ROLE_ID>", color=0xfd8282)
+        bombechanceuseEmbed.set_author(name="Bombe chanceuse", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        ticktickboomEmbed=discord.Embed(description="Blow up enemy arty or kill an enemy horse with your grenade.\n<@&TODO_ROLE_ID>", color=0xfd8282)
+        ticktickboomEmbed.set_author(name="Tick Tick Boom", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        holyhandgrenadesEmbed=discord.Embed(description="As a line successfully overrun and kill an enemy line after throwing Grenadiers.\n<@&TODO_ROLE_ID>", color=0xfd8282)
+        holyhandgrenadesEmbed.set_author(name="Holy Hand Grenades", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+
         # Garde Medals Title ------------------------------------------------------------------------------------------------------
         gardemedalsEmbed=discord.Embed(title="Garde Medals", description="", color=0x810505)
         gardemedalsEmbed.set_thumbnail(url="https://media.discordapp.net/attachments/960873839036887061/1148913727953961040/image.png")
@@ -294,13 +296,13 @@ class enlistedCog(commands.Cog):
         gardeimperialeEmbed=discord.Embed(description="Obtain 5 melee Kills in a single round.\n<@&1148913866361819207>", color=0xb20b0b)
         gardeimperialeEmbed.set_author(name="Garde Imperiale", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        rodetoruinEmbed=discord.Embed(description="Kill 3 Enemy Cavalry in a single round (includes HQ scouts)\n<@&1148915957398523925>", color=0xb20b0b)
+        rodetoruinEmbed=discord.Embed(description="Kill 3 enemy cavalry in a single round (includes HQ scouts)\n<@&1148915957398523925>", color=0xb20b0b)
         rodetoruinEmbed.set_author(name="Rode to Ruin", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        musketeerEmbed=discord.Embed(description="Obtain 3 kills via shooting in a single round\n<@&1148918057591394334>", color=0xb20b0b)
+        musketeerEmbed=discord.Embed(description="Obtain 3 kills via shooting in a single round.\n<@&1148918057591394334>", color=0xb20b0b)
         musketeerEmbed.set_author(name="Musketeer", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
         
-        elitemusketeerEmbed=discord.Embed(description="Obtain 5 kills via shooting in a single round\n<@&1299985991422971904>", color=0xb20b0b)
+        elitemusketeerEmbed=discord.Embed(description="Obtain 5 kills via shooting in a single round.\n<@&1299985991422971904>", color=0xb20b0b)
         elitemusketeerEmbed.set_author(name="Elite Musketeer", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         # Skirm Medals Title ------------------------------------------------------------------------------------------------------
@@ -332,14 +334,24 @@ class enlistedCog(commands.Cog):
         trustisthekeyEmbed=discord.Embed(description="Wipe out an entire enemy line without losing any cavalry.\n<@&1015950744035270666>", color=0xddc890)
         trustisthekeyEmbed.set_author(name="Team Work makes the Dream Work", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        imnumberoneEmbed=discord.Embed(description="Obtain double the amount of kills than the first player on the enemy team.\n<@&1015950941075296307>", color=0xddc890)
+        imnumberoneEmbed=discord.Embed(description="Obtain double the amount of kills as the first player on the enemy team.\n<@&1015950941075296307>", color=0xddc890)
         imnumberoneEmbed.set_author(name="I'm Number One!", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        ghostriderEmbed=discord.Embed(description="Survive until force charge (or the end of a round) on a horse with an empty health bar.\n<@&1015951080175185930>", color=0xddc890)
-        ghostriderEmbed.set_author(name="Ghost Rider", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+        saberSpearsEmbed=discord.Embed(description="1 vs 1 an enemy sgt (while mounted) and kill them with a saber.\n<@&TODO_ROLE_ID>", color=0xddc890)
+        saberSpearsEmbed.set_author(name="Saber > Spear", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        themongolianEmbed=discord.Embed(description="Obtain 4 kills by shooting the enemy in a single round.\n<@&1148911940584874015>", color=0xddc890)
-        themongolianEmbed.set_author(name="THE Mongolian", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+        thisroundismeEmbed=discord.Embed(description="Kill 10 or more people in a round.\n<@&TODO_ROLE_ID>", color=0xddc890)
+        thisroundismeEmbed.set_author(name="This Round Is On Me", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        pikecasualEmbed=discord.Embed(description="Shoot 2 enemy sgts in a round.\n<@&TODO_ROLE_ID>", color=0xddc890)
+        pikecasualEmbed.set_author(name="Pike this you filthy casual", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        offwiththeirsheadsEmbed=discord.Embed(description="Kill 3 officers and/or sgts in a round.\n<@&TODO_ROLE_ID>", color=0xddc890)
+        offwiththeirsheadsEmbed.set_author(name="Off With Their Heads", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        yipikeyaEmbed=discord.Embed(description="Get at least 2 kills with a saber while getting a kill with your horse in the same kill feed.\n<@&TODO_ROLE_ID>", color=0xddc890)
+        yipikeyaEmbed.set_author(name="YIPIKIYA mother f$&@er", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
 
         # Artillerie Medals Title ------------------------------------------------------------------------------------------------------
         artymedalsEmbed=discord.Embed(title="Artillerie Medals", description="", color=0x1e21dc)
@@ -348,14 +360,20 @@ class enlistedCog(commands.Cog):
         grandbombardierEmbed=discord.Embed(description="Eliminate 5 or more enemy players with a single cannon shot.\n<@&772932119877517362>", color=0x7879e5)
         grandbombardierEmbed.set_author(name="Grand Bombardier", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        chimneysweepEmbed=discord.Embed(description="Kill an enemy at a distance of less than 5 m with round shot.\n<@&772932461923139595>", color=0x7879e5)
-        chimneysweepEmbed.set_author(name="Chimney Sweep", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+        sixtyninesbaneEmbed=discord.Embed(description="Wipe out a 69th artillery piece.\n<@&TODO_ROLE_ID>", color=0x7879e5)
+        sixtyninesbaneEmbed.set_author(name="69th's Bane", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        grandbombardierEmbed=discord.Embed(description="Eliminate 5 or more enemy players with a single cannon shot.\n<@&772932119877517362>", color=0x7879e5)
+        grandbombardierEmbed.set_author(name="Grand Bombardier", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+
+        someassemblyrequiredEmbed=discord.Embed(description="As a Sapper, finish the round top of the leaderboard with no kills.\n<@&TODO_ROLE_ID>", color=0x7879e5)
+        someassemblyrequiredEmbed.set_author(name="Some Assembly Required", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         unrelentingbarrageEmbed=discord.Embed(description="Obtain 10 or more kills with any artillery piece(s) in a single line battle round.\n<@&772932588729270302>", color=0x7879e5)
         unrelentingbarrageEmbed.set_author(name="Unrelenting Barrage", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        ramitralphEmbed=discord.Embed(description="Obtain 2 or more kills in a single round using a ramrod.\n<@&910495447095857194>", color=0x7879e5)
-        ramitralphEmbed.set_author(name="Ram it Ralph", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+        taxcollectorEmbed=discord.Embed(description="Kill 5 officers in a single event with artillery.\n<@&TODO_ROLE_ID>", color=0x7879e5)
+        taxcollectorEmbed.set_author(name="Tax Collector", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         siryourpackageEmbed=discord.Embed(description="Kill just a single player with round shot.\n<@&1003634796737605682>", color=0x7879e5)
         siryourpackageEmbed.set_author(name="Sir, your package", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
@@ -363,8 +381,8 @@ class enlistedCog(commands.Cog):
         finderskeepersEmbed=discord.Embed(description="Steal an enemy cannon.\n<@&1003635610348703844>", color=0x7879e5)
         finderskeepersEmbed.set_author(name="Finders Keepers", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        myvirginsifyoupleaseEmbed=discord.Embed(description="As a sapper, kill 2 or more enemies with a shovel.\n<@&772933962255433728>", color=0x7879e5)
-        myvirginsifyoupleaseEmbed.set_author(name="My Virgins, If you Please", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
+        ceasefireEmbed=discord.Embed(description="Achieve 20+ artillery kills in a round.\n<@&TODO_ROLE_ID>", color=0x7879e5)
+        ceasefireEmbed.set_author(name="Cease Fire? Never Heard of Her", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
         
         rocketmanEmbed=discord.Embed(description="Achieve 5+ kills in one round using rockets.\n<@&1388038131093082242>", color=0x9a82b0)
         rocketmanEmbed.set_author(name="Rocket Man", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
