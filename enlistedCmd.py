@@ -219,7 +219,6 @@ class enlistedCog(commands.Cog):
     @commands.command(aliases=["Medals"])
     async def medals(self, ctx):
         medalsChannel = self.bot.get_channel(772921078095937567)
-        await ctx.send(file=discord.File('/home/container/files/medals.png'))
   
         # Enlisted Medals Title ----------------------------------------------------
         enlistmedalsEmbed=discord.Embed(title="Enlisted Medals", description="", color=0xff0000)
