@@ -312,10 +312,10 @@ class enlistedCog(commands.Cog):
         goldLionEmbed=discord.Embed(description="Achieve 10 melee kills and 4 shooting kills in a single round.\n<@&TODO_ROLE_ID>", color=0xb20b0b)
         goldLionEmbed.set_author(name="Gold Lion", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        dragzHonorEmbed=discord.Embed(description="Achieve Gren IX (2.4 KPR) over the entire month\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        dragzHonorEmbed=discord.Embed(description="Achieve Gren IX (2.4 KPR) over the entire month.\n<@&TODO_ROLE_ID>", color=0xb20b0b)
         dragzHonorEmbed.set_author(name="Dragz Honor", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
-        loneWolfEmbed=discord.Embed(description="Continue a charge alone after your line is wiped, survive, and kill the enemy line you were attacking\n<@&TODO_ROLE_ID>", color=0xb20b0b)
+        loneWolfEmbed=discord.Embed(description="Continue a charge alone after your line is wiped, survive, and kill the enemy line you were attacking.\n<@&TODO_ROLE_ID>", color=0xb20b0b)
         loneWolfEmbed.set_author(name="The Lone Wolf", icon_url="https://images.emojiterra.com/twitter/512px/1f396.png")
 
         # Skirm Medals Title ------------------------------------------------------------------------------------------------------
