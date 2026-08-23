@@ -874,6 +874,7 @@ class enlistedCog(commands.Cog):
         skirmRole = ctx.guild.get_role(826778081531658280)
         guardRole = ctx.guild.get_role(802900303648653322)
         cavRole = ctx.guild.get_role(973152930330968094)
+        infanterievetRole = ctx.guild.get_role(1536628001771487242)
         supportstaffRole = ctx.guild.get_role(772922207760416829)
         soRole = ctx.guild.get_role(772921452135055360)
         coRole = ctx.guild.get_role(772921453095944203)
@@ -1176,7 +1177,7 @@ class enlistedCog(commands.Cog):
                 return enlistedCount
 
             #Stuff for creating muster roll
-            companies = ["arty", "skirm", "cav", "guard", "supportstaff"]
+            companies = ["arty", "skirm", "cav", "guard", "infanterievet", "supportstaff"]
             lists = ["So", "Co", "Nco", "Cpl", "Ocdt", "Enlisted"]
             muster = {}
 
@@ -1186,6 +1187,7 @@ class enlistedCog(commands.Cog):
                 elif company == "skirm": role = skirmRole
                 elif company == "cav": role = cavRole
                 elif company == "guard": role = guardRole
+                elif company == "infanterievet": role = infanterievetRole
                 elif company == "supportstaff": role = supportstaffRole
 
                 for list in lists:
@@ -1301,6 +1303,17 @@ class enlistedCog(commands.Cog):
                     "/home/container/files/arty.png", filename="arty.png"
                 )
 
+            # Infanterie Vet
+            try:
+                infanterievetImg = discord.File(
+                    "files/infanterievet.png",
+                    filename="infanterievet.png",
+                )
+            except:
+                infanterievetImg = discord.File(
+                    "/home/container/files/infanterievet.png", filename="infanterievet.png"
+                )
+
             # Support Staff
             try:
                 supportstaffImg = discord.File(
@@ -1320,13 +1333,13 @@ class enlistedCog(commands.Cog):
             soEmbed.set_thumbnail(url="attachment://seniorofficer.png")
             soEmbed.add_field(name="Colonel Shady", value="1 IC of the 3e", inline=False)
             soEmbed.add_field(name="Major TANKIGAMER", value="2IC of the 3e, Leader of Cavalerie, Keeper of the Tale", inline=False)
+            soEmbed.add_field(name="Capitaine Spyro", value="Leader of the Infanterie, Minister of Security", inline=False)
 
             # Commissioned Officers ----------------------------------------------------
             coEmbed=discord.Embed(title="Commissioned Officers", description="", color=0x112074)
             coEmbed.set_thumbnail(url="attachment://commissionedofficer.png")
             coEmbed.add_field(name="Lieutenant Danx", value="Leader of the Legere", inline=False)
             coEmbed.add_field(name="Sous-Lieutenant AsianSharpe", value="Leader of the Artillerie, Minister of Diplomacy", inline=False)
-            coEmbed.add_field(name="Sous-Lieutenant Spyro", value="Leader of the Infanterie, Minister of Security", inline=False)
 
             # Adjutant Council (Disabled) ----------------------------------------------------
             #adjEmbed=discord.Embed(title="Adjutant Council", description="", color=0x2b56c8)
@@ -1337,22 +1350,21 @@ class enlistedCog(commands.Cog):
             # Non-Commissioned Officers ----------------------------------------------------
             ncoEmbed=discord.Embed(title="Non-Commissioned Officers", description="", color=0x192fa7)
             ncoEmbed.set_thumbnail(url="attachment://nco.png")
-            ncoEmbed.add_field(name="Fahnrich Dragz", value="Leader of the Garde", inline=False)                       
+            ncoEmbed.add_field(name="Fahnrich Garfunkel", value="Leader of the Garde", inline=False)                       
             ncoEmbed.add_field(name="Fahnrich Mugi", value="Legere Leader, Minister of Security", inline=False)
             ncoEmbed.add_field(name="Sergeant-Major Ganthador", value="Artillerie Leader, Minister of Propaganda", inline=False)
             ncoEmbed.add_field(name="Sergeant-Major Taragorn", value="Infanterie Leader, Minister of Culture", inline=False)
-            ncoEmbed.add_field(name="Sergeant Garfunkel", value="Garde Leader", inline=False)
             ncoEmbed.add_field(name="Sergeant 2big2bear13", value="Cavalerie Leader", inline=False)
+            ncoEmbed.add_field(name="Sergeant Wogsauce", value="Garde Leader", inline=False)
+            ncoEmbed.add_field(name="Sergeant Krizzle", value="Garde Leader", inline=False)
 
             # Corporals ----------------------------------------------------
             cplEmbed=discord.Embed(title="Corporals", description="", color=0x1e39cd)
             cplEmbed.set_thumbnail(url="attachment://cpl.jpg")
             cplEmbed.add_field(name="Caporal-Fourrier Kruber", value="", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Wogsauce", value="", inline=False)
-            cplEmbed.add_field(name="Caporal-Fourrier Krizzle", value="", inline=False)
             cplEmbed.add_field(name="Caporal-Fourrier Pin0", value="", inline=False)
+            cplEmbed.add_field(name="Caporal-Fourrier Fartic", value="", inline=False)
             cplEmbed.add_field(name="Caporal HelixOrion", value="", inline=False)
-            cplEmbed.add_field(name="Caporal Fartic", value="", inline=False)
             cplEmbed.add_field(name="Caporal Kage", value="", inline=False)
             cplEmbed.add_field(name="Caporal Xander", value="", inline=False)
             cplEmbed.add_field(name="Caporal Gaming Rabbit", value="", inline=False)
@@ -1365,54 +1377,42 @@ class enlistedCog(commands.Cog):
                 description="",
                 color=0x860404,
             )
+            
+            def split_embed_value(value, max_length=1024):
+                parts = []
+                while len(value) > max_length:
+                    split_pos = value.rfind('\n', 0, max_length)
+                    if split_pos == -1:
+                        split_pos = max_length
+                    parts.append(value[:split_pos])
+                    value = value[split_pos:].strip()
+                if value:
+                    parts.append(value)
+                return parts
+
             guardEmbed.set_thumbnail(url="attachment://guard.png")
             list = muster.get('guardSo')
             if list and list.strip():
-                guardEmbed.add_field(
-                    name=f"Senior Officers", value=f"\u200b{muster['guardSo']}", inline=False
-                )
-                guardEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['guardSo'])
+                guardEmbed.add_field(name=f"Senior Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
             list = muster.get('guardCo')
             if list and list.strip():
-                guardEmbed.add_field(
-                    name=f"Commissioned Officers", value=f"\u200b{muster['guardCo']}", inline=False
-                )
-                guardEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['guardCo'])
+                guardEmbed.add_field(name=f"Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
             list = muster.get('guardNco')
             if list and list.strip():
-                guardEmbed.add_field(
-                    name=f"Non-Commissioned Officers",
-                    value=f"\u200b{muster['guardNco']}",
-                    inline=False,
-                )
-                guardEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['guardNco'])
+                guardEmbed.add_field(name=f"Non-Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('guardCpl')
             if list and list.strip():
-                guardEmbed.add_field(
-                    name=f"Corporals", value=f"\u200b{muster['guardCpl']}", inline=False
-                )
-                guardEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['guardCpl'])
+                guardEmbed.add_field(name=f"Corporals", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('guardEnlisted')
             if list and list.strip():
-                guardEmbed.add_field(
-                    name=f"Enlisted", value=f"\u200b{muster['guardEnlisted']}", inline=False
-                )
+                parts = split_embed_value(muster['guardEnlisted'])
+                guardEmbed.add_field(name=f"Enlisted", value=f"\u200b{chr(10).join(parts)}", inline=False)
 
             # Legere ---------------------------------------------------------------------
             skirmEmbed = discord.Embed(
@@ -1433,41 +1433,23 @@ class enlistedCog(commands.Cog):
                 )
             list = muster.get('skirmCo')
             if list and list.strip():
-                skirmEmbed.add_field(
-                    name=f"Commissioned Officers", value=f"\u200b{muster['skirmCo']}", inline=False
-                )
-                skirmEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['skirmCo'])
+                skirmEmbed.add_field(name=f"Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('skirmNco')
             if list and list.strip():
-                skirmEmbed.add_field(
-                    name=f"Non-Commissioned Officers",
-                    value=f"\u200b{muster['skirmNco']}",
-                    inline=False,
-                )
-                skirmEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['skirmNco'])
+                skirmEmbed.add_field(name=f"Non-Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('skirmCpl')
             if list and list.strip():
-                skirmEmbed.add_field(
-                    name=f"Corporals", value=f"\u200b{muster['skirmCpl']}", inline=False
-                )
-                skirmEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['skirmCpl'])
+                skirmEmbed.add_field(name=f"Corporals", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('skirmEnlisted')
             if list and list.strip():
-                skirmEmbed.add_field(
-                    name=f"Enlisted", value=f"\u200b{muster['skirmEnlisted']}", inline=False
-                )
+                parts = split_embed_value(muster['skirmEnlisted'])
+                skirmEmbed.add_field(name=f"Enlisted", value=f"\u200b{chr(10).join(parts)}", inline=False)
 
             # Cavalerie ---------------------------------------------------------------------
             cavEmbed = discord.Embed(
@@ -1498,31 +1480,18 @@ class enlistedCog(commands.Cog):
                 )
             list = muster.get('cavNco')
             if list and list.strip():
-                cavEmbed.add_field(
-                    name=f"Non-Commissioned Officers",
-                    value=f"\u200b{muster['cavNco']}",
-                    inline=False,
-                )
-                cavEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['cavNco'])
+                cavEmbed.add_field(name=f"Non-Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('cavCpl')
             if list and list.strip():
-                cavEmbed.add_field(
-                    name=f"Corporals", value=f"\u200b{muster['cavCpl']}", inline=False
-                )
-                cavEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['cavCpl'])
+                cavEmbed.add_field(name=f"Corporals", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('cavEnlisted')
             if list and list.strip():
-                cavEmbed.add_field(
-                    name=f"Enlisted", value=f"\u200b{muster['cavEnlisted']}", inline=False
-                )
+                parts = split_embed_value(muster['cavEnlisted'])
+                cavEmbed.add_field(name=f"Enlisted", value=f"\u200b{chr(10).join(parts)}", inline=False)
 
             # Artillerie ---------------------------------------------------------------------
             artyEmbed = discord.Embed(
@@ -1533,49 +1502,61 @@ class enlistedCog(commands.Cog):
             artyEmbed.set_thumbnail(url="attachment://arty.png")
             list = muster.get('artySo')
             if list and list.strip():
-                artyEmbed.add_field(
-                    name=f"Senior Officers", value=f"\u200b{muster['artySo']}", inline=False
-                )
-                artyEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['artySo'])
+                artyEmbed.add_field(name=f"Senior Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('artyCo')
             if list and list.strip():
-                artyEmbed.add_field(
-                    name=f"Commissioned Officers", value=f"\u200b{muster['artyCo']}", inline=False
-                )
-                artyEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['artyCo'])
+                artyEmbed.add_field(name=f"Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('artyNco')
             if list and list.strip():
-                artyEmbed.add_field(
-                    name=f"Non-Commissioned Officers", value=f"\u200b{muster['artyNco']}", inline=False
-                )
-                artyEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['artyNco'])
+                artyEmbed.add_field(name=f"Non-Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('artyCpl')
             if list and list.strip():
-                artyEmbed.add_field(
-                    name=f"Corporals", value=f"\u200b{muster['artyCpl']}", inline=False
-                )
-                artyEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['artyCpl'])
+                artyEmbed.add_field(name=f"Corporals", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('artyEnlisted')
             if list and list.strip():
-                artyEmbed.add_field(
-                    name=f"Enlisted", value=f"\u200b{muster['artyEnlisted']}", inline=False
-                )
+                parts = split_embed_value(muster['artyEnlisted'])
+                artyEmbed.add_field(name=f"Enlisted", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
+            # Infanterie Veterans ---------------------------------------------------------------------
+            infanterievetEmbed = discord.Embed(
+                title="Infanterie Veteran",
+                description="",
+                color=0xff0000,
+            )
+            infanterievetEmbed.set_thumbnail(url="attachment://infanterievet.png")
+            
+            list = muster.get('infanterievetSo')
+            if list and list.strip():
+                parts = split_embed_value(muster['infanterievetSo'])
+                infanterievetEmbed.add_field(name=f"Senior Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
+            list = muster.get('infanterievetCo')
+            if list and list.strip():
+                parts = split_embed_value(muster['infanterievetCo'])
+                infanterievetEmbed.add_field(name=f"Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
+            list = muster.get('infanterievetNco')
+            if list and list.strip():
+                parts = split_embed_value(muster['infanterievetNco'])
+                infanterievetEmbed.add_field(name=f"Non-Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
+            list = muster.get('infanterievetCpl')
+            if list and list.strip():
+                parts = split_embed_value(muster['infanterievetCpl'])
+                infanterievetEmbed.add_field(name=f"Corporals", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
+            list = muster.get('infanterievetEnlisted')
+            if list and list.strip():
+                parts = split_embed_value(muster['infanterievetEnlisted'])
+                infanterievetEmbed.add_field(name=f"Enlisted", value=f"\u200b{chr(10).join(parts)}", inline=False)
 
             # Support Staff ---------------------------------------------------------------------
             supportstaffEmbed = discord.Embed(
@@ -1584,9 +1565,11 @@ class enlistedCog(commands.Cog):
                 color=0x5d27a1,
             )
             supportstaffEmbed.set_thumbnail(url="attachment://supportstaff.png")
-            supportstaffEmbed.add_field(
-                name=f"Enlisted", value=f"\u200b{muster['supportstaffEnlisted']}", inline=False
-            )
+            
+            list = muster.get('supportstaffEnlisted')
+            if list and list.strip():
+                parts = split_embed_value(muster['supportstaffEnlisted'])
+                supportstaffEmbed.add_field(name=f"Enlisted", value=f"\u200b{chr(10).join(parts)}", inline=False)
 
             await workingMsg.delete()
 
@@ -1599,6 +1582,7 @@ class enlistedCog(commands.Cog):
             await ctx.send(file=skirmImg, embed=skirmEmbed)
             await ctx.send(file=cavImg, embed=cavEmbed)
             await ctx.send(file=artyImg, embed=artyEmbed)
+            await ctx.send(file=infanterievetImg, embed= infanterievetEmbed)
             await ctx.send(file=supportstaffImg, embed=supportstaffEmbed)
 
 async def setup(bot):
