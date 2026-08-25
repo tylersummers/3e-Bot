@@ -1379,15 +1379,37 @@ class enlistedCog(commands.Cog):
             )
             
             def split_embed_value(value, max_length=1024):
+                """Truncate and split value to fit within Discord's 1024 char field limit"""
+                if not value or not value.strip():
+                    return []
+                
+                # If already under limit after accounting for prefix, return as-is
+                effective_limit = max_length - 3  # Account for \u200b (2 chars) + at least one newline
+                if len(value) <= effective_limit:
+                    return [value]
+                
+                # Truncate to fit the limit
+                truncated = value[:effective_limit]
+                
+                # Split at newline boundaries within the truncated value
                 parts = []
-                while len(value) > max_length:
-                    split_pos = value.rfind('\n', 0, max_length)
-                    if split_pos == -1:
-                        split_pos = max_length
-                    parts.append(value[:split_pos])
-                    value = value[split_pos:].strip()
-                if value:
-                    parts.append(value)
+                current_part = ''
+                
+                for line in truncated.split('\n'):
+                    needed = 1 + len(line) if current_part else len(line)
+                    
+                    if len(current_part) + needed <= effective_limit:
+                        if current_part:
+                            current_part += '\n' + line
+                        else:
+                            current_part = line
+                    else:
+                        parts.append(current_part)
+                        current_part = line
+                
+                if current_part:
+                    parts.append(current_part)
+                
                 return parts
 
             guardEmbed.set_thumbnail(url="attachment://guard.png")
@@ -1423,8 +1445,9 @@ class enlistedCog(commands.Cog):
             skirmEmbed.set_thumbnail(url="attachment://skirms.png")
             list = muster.get('skirmSo')
             if list and list.strip():
+                parts = split_embed_value(muster['skirmSo'])
                 skirmEmbed.add_field(
-                    name=f"Senior Officers", value=f"\u200b{muster['skirmSo']}", inline=False
+                    name=f"Senior Officers", value=f"\u200b{chr(10).join(parts)}", inline=False
                 )
                 skirmEmbed.add_field(
                     name=f"\u200b",
@@ -1460,8 +1483,9 @@ class enlistedCog(commands.Cog):
             cavEmbed.set_thumbnail(url="attachment://cav.png")
             list = muster.get('cavSo')
             if list and list.strip():
+                parts = split_embed_value(muster['cavSo'])
                 cavEmbed.add_field(
-                    name=f"Senior Officers", value=f"\u200b{muster['cavSo']}", inline=False
+                    name=f"Senior Officers", value=f"\u200b{chr(10).join(parts)}", inline=False
                 )
                 cavEmbed.add_field(
                     name=f"\u200b",
@@ -1470,14 +1494,9 @@ class enlistedCog(commands.Cog):
                 )
             list = muster.get('cavCo')
             if list and list.strip():
-                cavEmbed.add_field(
-                    name=f"Commissioned Officers", value=f"\u200b{muster['cavCo']}", inline=False
-                )
-                cavEmbed.add_field(
-                    name=f"\u200b",
-                    value=f"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=",
-                    inline=False,
-                )
+                parts = split_embed_value(muster['cavCo'])
+                cavEmbed.add_field(name=f"Commissioned Officers", value=f"\u200b{chr(10).join(parts)}", inline=False)
+
             list = muster.get('cavNco')
             if list and list.strip():
                 parts = split_embed_value(muster['cavNco'])
